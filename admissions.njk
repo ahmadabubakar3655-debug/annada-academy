@@ -1,0 +1,80 @@
+---
+layout: base.njk
+title: Admissions
+description: "Admission information, requirements, and how to apply to Annada Qur'an & Science Academy."
+permalink: /admissions/
+---
+
+<section class="hero" style="padding: var(--space-xl) 0;">
+  <div class="container">
+    <h1>Admissions</h1>
+    <p class="hero-tagline">How to join the {{ site.shortName }} community.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>How Admission Works</h2>
+      <p>Admission information below is a general guide. Please contact the school directly to confirm current openings, fees, and exact requirements for your child's class level.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>1. Enquire</h3>
+        <p>Contact the school by phone, email, or the form below to ask about availability for your child's age group.</p>
+      </div>
+      <div class="card">
+        <h3>2. Visit or Submit Documents</h3>
+        <p>The school will guide you on any required documents (e.g. birth certificate, previous school records, passport photographs).</p>
+      </div>
+      <div class="card">
+        <h3>3. Confirmation</h3>
+        <p>Once requirements are met, the school will confirm placement and provide next steps for enrollment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Send an Admissions Enquiry</h2>
+      <p>Fill in the form and we'll get back to you as soon as possible.</p>
+    </div>
+
+    <form name="admissions" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="max-width:600px; margin: 0 auto;">
+      <input type="hidden" name="form-name" value="admissions">
+      <p class="hidden" style="display:none;">
+        <label>Don't fill this out: <input name="bot-field"></label>
+      </p>
+
+      <div class="form-group">
+        <label for="parentName">Parent/Guardian Name</label>
+        <input type="text" id="parentName" name="parentName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="childAge">Child's Age / Class Applying For</label>
+        <input type="text" id="childAge" name="childAge" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit Enquiry</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-org">{{ site.orgName }}</p>
+      <p class="footer-motto">{{ site.motto }}</p>
+      <p class="footer-tagline">{{ site.tagline }}</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>{{ site.address.line1 }}<br>{{ site.address.line2 }}</p>
+      <p>
+        <a href="tel:{{ site.contact.phone1 }}">{{ site.contact.phone1 }}</a><br>
+        <a href="tel:{{ site.contact.phone2 }}">{{ site.contact.phone2 }}</a>
+      </p>
+      <p><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="/admissions/">Admissions</a>
+      <a href="/academics/">Academics</a>
+      <a href="/gallery/">Gallery</a>
+      <a href="/faq/">FAQ</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; {{ currentYear }} {{ site.orgName }}. Est. {{ site.established }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,15 @@
+{
+  "name": "annada-academy",
+  "version": "1.0.0",
+  "description": "Official website for Annada Qur'an & Science Academy",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve --port=8080",
+    "dev": "npx @11ty/eleventy --serve --port=8080",
+    "build": "npx @11ty/eleventy",
+    "host": "npx @11ty/eleventy --serve --port=8080 --host=0.0.0.0",
+    "host-ip": "npx @11ty/eleventy --serve --port=8080 --host=10.129.222.51"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

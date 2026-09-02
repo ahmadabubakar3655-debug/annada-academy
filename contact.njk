@@ -1,0 +1,72 @@
+---
+layout: base.njk
+title: Contact Us
+description: "Contact Annada Qur'an & Science Academy in Kudan, Kaduna State."
+permalink: /contact/
+---
+
+<section class="hero" style="padding: var(--space-xl) 0;">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p class="hero-tagline">We'd love to hear from you.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card-grid">
+      <div class="card">
+        <h3>Address</h3>
+        <p>{{ site.address.line1 }}<br>{{ site.address.line2 }}</p>
+      </div>
+      <div class="card">
+        <h3>Phone</h3>
+        <p>
+          <a href="tel:{{ site.contact.phone1 }}">{{ site.contact.phone1 }}</a><br>
+          <a href="tel:{{ site.contact.phone2 }}">{{ site.contact.phone2 }}</a>
+        </p>
+      </div>
+      <div class="card">
+        <h3>Email</h3>
+        <p><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Send Us a Message</h2>
+    </div>
+
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="max-width:600px; margin: 0 auto;">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden" style="display:none;">
+        <label>Don't fill this out: <input name="bot-field"></label>
+      </p>
+
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>

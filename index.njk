@@ -1,0 +1,96 @@
+---
+layout: base.njk
+title: Home
+description: "Annada Qur'an & Science Academy in Kudan, Kaduna State — Qur'anic values, scientific knowledge, excellent character."
+---
+
+<section class="hero">
+  <div class="container">
+    <h1>{{ site.orgName }}</h1>
+    <p class="hero-motto">{{ site.motto }}</p>
+    <p class="hero-tagline">{{ site.tagline }}</p>
+    <div class="hero-actions">
+      <a href="/admissions/" class="btn btn-primary">Admissions Enquiry</a>
+      <a href="/about/" class="btn btn-outline">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Welcome to {{ site.shortName }}</h2>
+      <p>Established in {{ site.established }} in {{ site.address.line1 }}, {{ site.address.line2 }}, we bring together authentic Qur'anic education and a strong foundation in modern science.</p>
+    </div>
+
+    <div class="card-grid">
+      {% for value in site.values %}
+      <div class="card">
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Academic Programs</h2>
+      <p>A structured path from early education through secondary school.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Qur'anic & Islamic Studies</h3>
+        <p>Qur'an memorization (Hifz), Tajweed, Arabic language, and Islamic studies taught by qualified instructors.</p>
+      </div>
+      <div class="card">
+        <h3>Primary & Secondary Education</h3>
+        <p>A full academic curriculum covering core subjects, preparing students for national examinations.</p>
+      </div>
+      <div class="card">
+        <h3>Science & Technology</h3>
+        <p>A genuine emphasis on scientific literacy — mathematics, basic sciences, and technology.</p>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top: var(--space-lg);">
+      <a href="/academics/" class="btn btn-primary">View All Programs</a>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Why Choose {{ site.shortName }}?</h2>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Balanced Education</h3>
+        <p>A genuine integration of Islamic values and modern academic rigor — not one at the expense of the other.</p>
+      </div>
+      <div class="card">
+        <h3>Character Formation</h3>
+        <p>Discipline, adab (manners), and community are woven into daily school life, not treated as an afterthought.</p>
+      </div>
+      <div class="card">
+        <h3>Experienced Guidance</h3>
+        <p>Since {{ site.established }}, we've built our approach around what genuinely serves our students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" style="text-align:center;">
+  <div class="container">
+    <h2>Ready to Join Our Community?</h2>
+    <p style="max-width:500px; margin: var(--space-sm) auto var(--space-lg);">Reach out to learn more about admissions, classes available, and how to enroll your child.</p>
+    <div class="hero-actions">
+      <a href="/admissions/" class="btn btn-primary">Start Admissions Enquiry</a>
+      <a href="/contact/" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-navy);">Contact Us</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+---
+layout: base.njk
+title: About Us
+description: "Learn about Annada Qur'an & Science Academy's history, mission, vision, and educational philosophy."
+permalink: /about/
+---
+
+<section class="hero" style="padding: var(--space-xl) 0;">
+  <div class="container">
+    <h1>About {{ site.shortName }}</h1>
+    <p class="hero-tagline">Our story, our mission, and what we stand for.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our History</h2>
+      <p>{{ site.orgName }} was established in {{ site.established }} in {{ site.address.line1 }}, {{ site.address.line2 }}, with a clear purpose: to raise a generation grounded in Qur'anic knowledge and equipped with strong scientific understanding.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="card-grid">
+      <div class="card">
+        <h3>Our Mission</h3>
+        <p>{{ site.mission }}</p>
+      </div>
+      <div class="card">
+        <h3>Our Vision</h3>
+        <p>{{ site.vision }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Core Values</h2>
+    </div>
+    <div class="card-grid">
+      {% for value in site.values %}
+      <div class="card">
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Educational Philosophy</h2>
+      <p>We believe Qur'anic education and scientific learning are not in tension — they strengthen one another. Our students are taught to approach both their faith and their studies with seriousness, curiosity, and discipline.</p>
+    </div>
+  </div>
+</section>
