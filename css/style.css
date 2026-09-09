@@ -436,3 +436,101 @@ p { color: var(--color-text-light); }
     padding: var(--space-xl) 0;
   }
 }
+/* Professional Design Enhancements */
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Better cards */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn-primary {
+  background: #C9A24B;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #b08a3a;
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  background: #1B2A4A;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: #2a3d6a;
+  transform: scale(1.02);
+}
+
+/* Container max-width */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero section improved */
+.hero {
+  background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%);
+  color: white;
+  padding: 4rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Form improvements */
+input, textarea, select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+}
+input:focus, textarea:focus {
+  border-color: #C9A24B;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}

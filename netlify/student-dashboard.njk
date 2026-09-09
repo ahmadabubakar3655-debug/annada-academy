@@ -1,0 +1,74 @@
+---
+layout: base.njk
+title: Student Dashboard
+permalink: /student-dashboard/index.html
+---
+
+<div class="container" style="max-width: 800px; margin: 2rem auto; padding: 2rem;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1 style="color: #1B2A4A; margin: 0;">Student Dashboard</h1>
+    <button onclick="logout()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">Logout</button>
+  </div>
+
+  <div id="profileCard" style="background: #F7F3EC; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+    <div style="display: grid; gap: 1rem;">
+      <div><strong>Name:</strong> <span id="studentName">Loading...</span></div>
+      <div><strong>Email:</strong> <span id="studentEmail">Loading...</span></div>
+      <div><strong>Grade:</strong> <span id="studentGrade">Loading...</span></div>
+      <div><strong>Phone:</strong> <span id="studentPhone">Loading...</span></div>
+      <div><strong>Joined:</strong> <span id="studentJoined">Loading...</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+    <div style="background: #C9A24B; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+      <h3 style="margin: 0;">📝 Assignments</h3>
+      <p style="font-size: 2rem; margin: 0.5rem 0;">0</p>
+    </div>
+    <div style="background: #1B2A4A; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+      <h3 style="margin: 0;">📊 Grades</h3>
+      <p style="font-size: 2rem; margin: 0.5rem 0;">N/A</p>
+    </div>
+    <div style="background: #1E5631; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+      <h3 style="margin: 0;">📅 Attendance</h3>
+      <p style="font-size: 2rem; margin: 0.5rem 0;">--</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const token = localStorage.getItem('studentToken');
+  if (!token) {
+    window.location.href = '/student-login/';
+  }
+
+  async function loadProfile() {
+    try {
+      const response = await fetch('/.netlify/functions/student-profile', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const data = await response.json();
+      if (data.success) {
+        const student = data.student;
+        document.getElementById('studentName').textContent = student.name;
+        document.getElementById('studentEmail').textContent = student.email;
+        document.getElementById('studentGrade').textContent = student.grade || 'Not specified';
+        document.getElementById('studentPhone').textContent = student.phone || 'Not provided';
+        document.getElementById('studentJoined').textContent = new Date(student.createdAt).toLocaleDateString();
+      } else {
+        alert('Failed to load profile. Please login again.');
+        window.location.href = '/student-login/';
+      }
+    } catch (error) {
+      alert('Error loading profile. Please login again.');
+      window.location.href = '/student-login/';
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('studentToken');
+    window.location.href = '/student-login/';
+  }
+
+  loadProfile();
+</script>
