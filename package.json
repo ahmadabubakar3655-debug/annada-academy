@@ -11,5 +11,12 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.6.0",
+    "multer": "^2.3.0"
   }
 }
