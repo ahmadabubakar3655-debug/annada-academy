@@ -1,41 +1,12 @@
 ---
 layout: base.njk
 title: Gallery
-description: "Photos from Annada Qur'an & Science Academy — facilities, events, and activities."
-permalink: /gallery/
----
-
-<section class="hero" style="padding: var(--space-xl) 0;">
-  <div class="container">
-    <h1>Gallery</h1>
-    <p class="hero-tagline">A look at our school, facilities, and activities.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <p><em>Placeholder gallery — real school photographs will replace these once provided. In a later phase, this page will pull images automatically from the admin-managed database instead of being edited by hand.</em></p>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <h3>[Placeholder]</h3>
-        <p>Real gallery photos will appear here once uploaded through the admin panel.</p>
-      </div>
-    </div>
-  </div>
-</section>
----
-layout: base.njk
-title: Gallery
 permalink: /gallery/index.html
 ---
 
-<div class="container" style="padding: 2rem 0;">
-  <h1 style="color: #1B2A4A; text-align: center; margin-bottom: 2rem;">Our Gallery</h1>
-  
-  <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+<div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem 20px;">
+  <h1 style="color: #1B2A4A; text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Our Gallery</h1>
+  <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
     <p style="grid-column: 1/-1; text-align: center; color: #666;">Loading images...</p>
   </div>
 </div>
@@ -47,30 +18,35 @@ permalink: /gallery/index.html
       const data = await response.json();
       
       const grid = document.getElementById('galleryGrid');
-      
       if (data.success && data.images.length === 0) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No images in gallery yet.</p>';
         return;
       }
 
       grid.innerHTML = data.images.map(img => `
-        <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="openLightbox('${img._id}')">
-          <img src="${img.imageData}" alt="${img.title}" style="width: 100%; height: 250px; object-fit: cover;">
-          <div style="padding: 15px;">
-            <h3 style="margin: 0; color: #1B2A4A;">${img.title}</h3>
-            ${img.description ? `<p style="margin: 5px 0; color: #666;">${img.description}</p>` : ''}
-            <small style="color: #999;">${img.category || 'general'} • ${new Date(img.createdAt).toLocaleDateString()}</small>
+        <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;" onclick="openImage('${img.imageData}')">
+          <img src="${img.imageData}" alt="${img.title}" style="width: 100%; height: 220px; object-fit: cover;">
+          <div style="padding: 1rem;">
+            <h3 style="margin: 0; color: #1B2A4A; font-size: 1rem;">${img.title}</h3>
+            <small style="color: #999;">${new Date(img.createdAt).toLocaleDateString()}</small>
           </div>
         </div>
       `).join('');
     } catch (error) {
-      console.error('Error loading gallery:', error);
+      document.getElementById('galleryGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #dc3545;">Error loading gallery.</p>';
     }
   }
 
-  function openLightbox(id) {
-    // Simple lightbox - you can expand this
-    alert('Image view coming soon! ID: ' + id);
+  function openImage(imageData) {
+    // Simple lightbox
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer;';
+    overlay.onclick = function() { this.remove(); };
+    const img = document.createElement('img');
+    img.src = imageData;
+    img.style.cssText = 'max-width:90%;max-height:90%;border-radius:8px;';
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
   }
 
   loadGallery();

@@ -1,28 +1,39 @@
 ---
 layout: base.njk
-title: News & Announcements
-description: "Latest news and announcements from Annada Qur'an & Science Academy."
-permalink: /news/
+title: News
+permalink: /news/index.html
 ---
 
-<section class="hero" style="padding: var(--space-xl) 0;">
-  <div class="container">
-    <h1>News & Announcements</h1>
-    <p class="hero-tagline">Stay updated with what's happening at {{ site.shortName }}.</p>
+<div class="container" style="max-width: 1000px; margin: 0 auto; padding: 2rem 20px;">
+  <h1 style="color: #1B2A4A; text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">News & Announcements</h1>
+  <div id="newsContainer" style="display: grid; gap: 1.5rem;">
+    <p style="text-align: center; color: #666;">Loading news...</p>
   </div>
-</section>
+</div>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <p><em>Placeholder — once the admin panel and database are connected (a later phase), news posts will appear here automatically without editing this file by hand.</em></p>
-    </div>
+<script>
+  async function loadNews() {
+    try {
+      const response = await fetch('/.netlify/functions/get-news');
+      const data = await response.json();
+      
+      const container = document.getElementById('newsContainer');
+      if (data.success && data.news.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">No news articles yet.</p>';
+        return;
+      }
 
-    <div class="card-grid">
-      <div class="card">
-        <h3>Welcome to Our New Website</h3>
-        <p>We're excited to launch our new website. Announcements and updates will be posted here.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      container.innerHTML = data.news.map(item => `
+        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #C9A24B;">
+          <h2 style="color: #1B2A4A; margin: 0 0 0.5rem 0;">${item.title}</h2>
+          <small style="color: #999;">${item.date || new Date(item.createdAt).toLocaleDateString()}</small>
+          <p style="color: #444; line-height: 1.6; margin-top: 0.5rem;">${item.content}</p>
+        </div>
+      `).join('');
+    } catch (error) {
+      document.getElementById('newsContainer').innerHTML = '<p style="text-align: center; color: #dc3545;">Error loading news.</p>';
+    }
+  }
+
+  loadNews();
+</script>
