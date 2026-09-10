@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 
 exports.handler = async function(event) {
   try {
-    // Verify admin token
     const token = event.headers.authorization?.split(' ')[1];
     if (!token) {
       return { statusCode: 401, body: JSON.stringify({ error: 'Unauthorized' }) };
@@ -17,7 +16,7 @@ exports.handler = async function(event) {
 
     const { db } = await connectToDatabase();
     const students = await db.collection('students')
-      .find({}, { projection: { password: 0 } }) // Exclude passwords
+      .find({}, { projection: { password: 0 } })
       .sort({ createdAt: -1 })
       .toArray();
 
@@ -26,9 +25,6 @@ exports.handler = async function(event) {
       body: JSON.stringify({ success: true, students })
     };
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message })
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
 };
