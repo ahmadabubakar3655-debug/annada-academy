@@ -39,7 +39,7 @@ exports.handler = async function(event) {
     );
 
     // Generate reset link
-    const resetLink = `https://annada-academy.netlify.app/reset-password?token=${resetToken}`;
+    const resetLink = `https://annada-academy.netlify.app/reset-password/?token=${resetToken}`;
 
     // --- SEND EMAIL ---
     const transporter = nodemailer.createTransport({
@@ -51,7 +51,7 @@ exports.handler = async function(event) {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"Annada Academy" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Password Reset - Annada Academy',
       html: `
