@@ -1,62 +1,112 @@
 ---
 layout: base.njk
 title: About Us
-description: "Learn about Annada Qur'an & Science Academy's history, mission, vision, and educational philosophy."
-permalink: /about/
+permalink: /about/index.html
 ---
 
-<section class="hero" style="padding: var(--space-xl) 0;">
-  <div class="container">
-    <h1>About {{ site.shortName }}</h1>
-    <p class="hero-tagline">Our story, our mission, and what we stand for.</p>
+<!-- PAGE HEADER -->
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 4rem 1.5rem; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="color: #FFFFFF; font-size: 2.75rem; font-weight: 700; margin: 0 0 1rem 0;">About Annada Academy</h1>
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #F7F3EC; font-size: 1.15rem; opacity: 0.9; line-height: 1.6;">
+      Building the next generation of faithful, knowledgeable, and exemplary students.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our History</h2>
-      <p>{{ site.orgName }} was established in {{ site.established }} in {{ site.address.line1 }}, {{ site.address.line2 }}, with a clear purpose: to raise a generation grounded in Qur'anic knowledge and equipped with strong scientific understanding.</p>
-    </div>
+<!-- OUR STORY -->
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; margin-bottom: 0.5rem; text-align: center;">Our Story</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 2rem auto;"></div>
+    
+    <p style="color: #555; font-size: 1.05rem; line-height: 1.9; margin-bottom: 1.5rem;">
+      Annada Qur'an &amp; Science Academy was established in <strong style="color: #1B2A4A;">2018</strong> in Kudan, Kaduna State, Nigeria, with a vision to bridge the gap between traditional Islamic education and modern scientific learning.
+    </p>
+    
+    <p style="color: #555; font-size: 1.05rem; line-height: 1.9; margin-bottom: 1.5rem;">
+      We recognized that Muslim children in our community needed an institution that would nurture them in the memorization and deep understanding of the Holy Qur'an while simultaneously giving them a rigorous foundation in science, mathematics, and modern education — preparing them for both this world and the Hereafter.
+    </p>
+    
+    <p style="color: #555; font-size: 1.05rem; line-height: 1.9;">
+      Today, Annada Academy stands as a beacon of integrated Islamic education in Kaduna State, producing graduates equipped with strong faith, sound character, and academic excellence.
+    </p>
   </div>
 </section>
 
-<section class="section section-alt">
-  <div class="container">
-    <div class="card-grid">
-      <div class="card">
-        <h3>Our Mission</h3>
-        <p>{{ site.mission }}</p>
+<!-- MISSION & VISION -->
+<section style="padding: 4rem 1.5rem; background: #F7F3EC;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      
+      <!-- Mission -->
+      <div style="background: #FFFFFF; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-top: 4px solid #C9A24B;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
+        <h3 style="color: #1B2A4A; font-size: 1.5rem; margin-bottom: 1rem;">Our Mission</h3>
+        <p style="color: #555; line-height: 1.8; font-size: 1rem;">
+          To nurture children in the memorization and understanding of the Qur'an alongside a rigorous foundation in science and modern education, raising students of strong faith, sound character, and academic excellence.
+        </p>
       </div>
-      <div class="card">
-        <h3>Our Vision</h3>
-        <p>{{ site.vision }}</p>
+      
+      <!-- Vision -->
+      <div style="background: #FFFFFF; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-top: 4px solid #1E5631;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">👁️</div>
+        <h3 style="color: #1B2A4A; font-size: 1.5rem; margin-bottom: 1rem;">Our Vision</h3>
+        <p style="color: #555; line-height: 1.8; font-size: 1rem;">
+          To be a leading model in Kaduna State and beyond for Islamic education that integrates authentic Qur'anic learning with scientific inquiry, producing graduates equipped for both this world and the Hereafter.
+        </p>
       </div>
+      
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Core Values</h2>
-    </div>
-    <div class="card-grid">
-      {% for value in site.values %}
-      <div class="card">
-        <h3>{{ value.title }}</h3>
-        <p>{{ value.description }}</p>
+<!-- OUR VALUES -->
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Our Core Values</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 3rem auto;"></div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+      
+      <div style="text-align: center; padding: 1.5rem;">
+        <div style="width: 70px; height: 70px; background: #F7F3EC; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📖</div>
+        <h4 style="color: #1B2A4A; margin-bottom: 0.5rem;">Faith</h4>
+        <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">Rooted in the Qur'an and Sunnah</p>
       </div>
-      {% endfor %}
+      
+      <div style="text-align: center; padding: 1.5rem;">
+        <div style="width: 70px; height: 70px; background: #F7F3EC; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📚</div>
+        <h4 style="color: #1B2A4A; margin-bottom: 0.5rem;">Knowledge</h4>
+        <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">Excellence in all fields of learning</p>
+      </div>
+      
+      <div style="text-align: center; padding: 1.5rem;">
+        <div style="width: 70px; height: 70px; background: #F7F3EC; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🤝</div>
+        <h4 style="color: #1B2A4A; margin-bottom: 0.5rem;">Character</h4>
+        <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">Discipline, respect, and integrity</p>
+      </div>
+      
+      <div style="text-align: center; padding: 1.5rem;">
+        <div style="width: 70px; height: 70px; background: #F7F3EC; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🌟</div>
+        <h4 style="color: #1B2A4A; margin-bottom: 0.5rem;">Excellence</h4>
+        <p style="color: #666; font-size: 0.9rem; line-height: 1.6;">Striving for the best in everything</p>
+      </div>
+      
     </div>
   </div>
 </section>
 
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Educational Philosophy</h2>
-      <p>We believe Qur'anic education and scientific learning are not in tension — they strengthen one another. Our students are taught to approach both their faith and their studies with seriousness, curiosity, and discipline.</p>
-    </div>
+<!-- CTA -->
+<section style="padding: 4rem 1.5rem; background: #1B2A4A; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 style="color: #FFFFFF; font-size: 2rem; margin-bottom: 1rem;">Join Our Community</h2>
+    <p style="color: #F7F3EC; font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+      Give your child the gift of integrated Islamic and modern education.
+    </p>
+    <a href="/admissions/" style="background: #C9A24B; color: #1B2A4A; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.05rem; display: inline-block;">
+      Apply for Admission
+    </a>
   </div>
 </section>

@@ -1,72 +1,126 @@
 ---
 layout: base.njk
 title: Contact Us
-description: "Contact Annada Qur'an & Science Academy in Kudan, Kaduna State."
-permalink: /contact/
+permalink: /contact/index.html
 ---
 
-<section class="hero" style="padding: var(--space-xl) 0;">
-  <div class="container">
-    <h1>Contact Us</h1>
-    <p class="hero-tagline">We'd love to hear from you.</p>
+<!-- PAGE HEADER -->
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 4rem 1.5rem; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="color: #FFFFFF; font-size: 2.75rem; font-weight: 700; margin: 0 0 1rem 0;">Contact Us</h1>
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #F7F3EC; font-size: 1.15rem; opacity: 0.9; line-height: 1.6;">
+      We'd love to hear from you. Reach out to us anytime.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="card-grid">
-      <div class="card">
-        <h3>Address</h3>
-        <p>{{ site.address.line1 }}<br>{{ site.address.line2 }}</p>
-      </div>
-      <div class="card">
-        <h3>Phone</h3>
-        <p>
-          <a href="tel:{{ site.contact.phone1 }}">{{ site.contact.phone1 }}</a><br>
-          <a href="tel:{{ site.contact.phone2 }}">{{ site.contact.phone2 }}</a>
+<!-- CONTACT INFO -->
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📍</div>
+        <h3 style="color: #1B2A4A; margin-bottom: 0.75rem; font-size: 1.1rem;">Address</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+          Kudan, Kudan LGA<br>
+          Kaduna State, Nigeria
         </p>
       </div>
-      <div class="card">
-        <h3>Email</h3>
-        <p><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📞</div>
+        <h3 style="color: #1B2A4A; margin-bottom: 0.75rem; font-size: 1.1rem;">Phone</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+          <a href="tel:09136392655" style="color: #666; text-decoration: none;">09136392655</a><br>
+          <a href="tel:09015960031" style="color: #666; text-decoration: none;">09015960031</a>
+        </p>
       </div>
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">✉️</div>
+        <h3 style="color: #1B2A4A; margin-bottom: 0.75rem; font-size: 1.1rem;">Email</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+          <a href="mailto:annadaacademy@gmail.com" style="color: #666; text-decoration: none; word-break: break-all;">annadaacademy@gmail.com</a>
+        </p>
+      </div>
+      
     </div>
+
+    <!-- CONTACT FORM -->
+    <div style="max-width: 700px; margin: 0 auto;">
+      <h2 style="color: #1B2A4A; font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Send Us a Message</h2>
+      <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 2.5rem auto;"></div>
+      
+      <form id="contactForm" style="background: #F7F3EC; padding: 2.5rem; border-radius: 12px;">
+        
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Your Name *</label>
+          <input type="text" id="name" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background: white;">
+        </div>
+        
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Email *</label>
+          <input type="email" id="contactEmail" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background: white;">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Message *</label>
+          <textarea id="contactMessage" rows="5" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical; background: white;"></textarea>
+        </div>
+        
+        <button type="submit" style="width: 100%; padding: 14px; background: #1B2A4A; color: #FFFFFF; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer;">
+          Send Message
+        </button>
+        
+        <div id="contactFormMessage" style="margin-top: 1rem; padding: 12px; border-radius: 8px; display: none;"></div>
+      </form>
+    </div>
+    
   </div>
 </section>
 
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2>Send Us a Message</h2>
-    </div>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const messageDiv = document.getElementById('contactFormMessage');
+    
+    messageDiv.style.display = 'block';
+    messageDiv.style.background = '#cce5ff';
+    messageDiv.style.color = '#004085';
+    messageDiv.textContent = 'Sending...';
 
-    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="max-width:600px; margin: 0 auto;">
-      <input type="hidden" name="form-name" value="contact">
-      <p class="hidden" style="display:none;">
-        <label>Don't fill this out: <input name="bot-field"></label>
-      </p>
+    const data = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('contactEmail').value,
+      message: document.getElementById('contactMessage').value
+    };
 
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
+    try {
+      const response = await fetch('/.netlify/functions/save-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
-      </div>
+      const result = await response.json();
 
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject">
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
-  </div>
-</section>
+      if (result.success) {
+        messageDiv.style.background = '#d4edda';
+        messageDiv.style.color = '#155724';
+        messageDiv.textContent = '✅ Thank you! Your message has been sent.';
+        document.getElementById('contactForm').reset();
+      } else {
+        messageDiv.style.background = '#f8d7da';
+        messageDiv.style.color = '#721c24';
+        messageDiv.textContent = '❌ Error: ' + (result.error || 'Please try again.');
+      }
+    } catch (error) {
+      messageDiv.style.background = '#f8d7da';
+      messageDiv.style.color = '#721c24';
+      messageDiv.textContent = '❌ Error: ' + error.message;
+    }
+  });
+</script>

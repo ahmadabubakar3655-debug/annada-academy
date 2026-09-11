@@ -1,80 +1,157 @@
 ---
 layout: base.njk
 title: Admissions
-description: "Admission information, requirements, and how to apply to Annada Qur'an & Science Academy."
-permalink: /admissions/
+permalink: /admissions/index.html
 ---
 
-<section class="hero" style="padding: var(--space-xl) 0;">
-  <div class="container">
-    <h1>Admissions</h1>
-    <p class="hero-tagline">How to join the {{ site.shortName }} community.</p>
+<!-- PAGE HEADER -->
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 4rem 1.5rem; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="color: #FFFFFF; font-size: 2.75rem; font-weight: 700; margin: 0 0 1rem 0;">Admissions</h1>
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #F7F3EC; font-size: 1.15rem; opacity: 0.9; line-height: 1.6;">
+      Join the Annada Academy family. Admissions are open for the new session.
+    </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>How Admission Works</h2>
-      <p>Admission information below is a general guide. Please contact the school directly to confirm current openings, fees, and exact requirements for your child's class level.</p>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <h3>1. Enquire</h3>
-        <p>Contact the school by phone, email, or the form below to ask about availability for your child's age group.</p>
+<!-- REQUIREMENTS -->
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Admission Requirements</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 3rem auto;"></div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px;">
+        <h3 style="color: #1B2A4A; font-size: 1.1rem; margin-bottom: 1rem;">📋 Documents Required</h3>
+        <ul style="color: #555; line-height: 2; padding-left: 1.2rem; font-size: 0.95rem;">
+          <li>Birth certificate</li>
+          <li>Previous school records</li>
+          <li>Passport photographs (4)</li>
+          <li>Parent/Guardian ID</li>
+        </ul>
       </div>
-      <div class="card">
-        <h3>2. Visit or Submit Documents</h3>
-        <p>The school will guide you on any required documents (e.g. birth certificate, previous school records, passport photographs).</p>
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px;">
+        <h3 style="color: #1B2A4A; font-size: 1.1rem; margin-bottom: 1rem;">✅ Eligibility</h3>
+        <ul style="color: #555; line-height: 2; padding-left: 1.2rem; font-size: 0.95rem;">
+          <li>Ages 5 and above</li>
+          <li>Willingness to learn</li>
+          <li>Parental commitment</li>
+          <li>Basic readiness assessment</li>
+        </ul>
       </div>
-      <div class="card">
-        <h3>3. Confirmation</h3>
-        <p>Once requirements are met, the school will confirm placement and provide next steps for enrollment.</p>
+      
+      <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px;">
+        <h3 style="color: #1B2A4A; font-size: 1.1rem; margin-bottom: 1rem;">💰 Fees</h3>
+        <ul style="color: #555; line-height: 2; padding-left: 1.2rem; font-size: 0.95rem;">
+          <li>Affordable tuition</li>
+          <li>Flexible payment plans</li>
+          <li>Sibling discounts</li>
+          <li>Scholarships available</li>
+        </ul>
       </div>
+      
     </div>
   </div>
 </section>
 
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2>Send an Admissions Enquiry</h2>
-      <p>Fill in the form and we'll get back to you as soon as possible.</p>
-    </div>
-
-    <form name="admissions" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="max-width:600px; margin: 0 auto;">
-      <input type="hidden" name="form-name" value="admissions">
-      <p class="hidden" style="display:none;">
-        <label>Don't fill this out: <input name="bot-field"></label>
-      </p>
-
-      <div class="form-group">
-        <label for="parentName">Parent/Guardian Name</label>
-        <input type="text" id="parentName" name="parentName" required>
+<!-- ADMISSION FORM -->
+<section style="padding: 4rem 1.5rem; background: #F7F3EC;">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Admissions Enquiry</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 2.5rem auto;"></div>
+    
+    <form id="admissionsForm" style="background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Parent/Guardian Name *</label>
+        <input type="text" id="parentName" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
       </div>
-
-      <div class="form-group">
-        <label for="childAge">Child's Age / Class Applying For</label>
-        <input type="text" id="childAge" name="childAge" required>
+      
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Student Name *</label>
+        <input type="text" id="studentName" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
       </div>
-
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Email *</label>
+          <input type="email" id="email" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Phone *</label>
+          <input type="tel" id="phone" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        </div>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email">
+      
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Grade Applying For</label>
+        <select id="grade" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+          <option value="Primary">Primary (Grade 1-6)</option>
+          <option value="JSS">Junior Secondary (JSS 1-3)</option>
+          <option value="SSS">Senior Secondary (SSS 1-3)</option>
+          <option value="Hifz">Hifz Program</option>
+        </select>
       </div>
-
-      <div class="form-group">
-        <label for="message">Message (optional)</label>
-        <textarea id="message" name="message" rows="4"></textarea>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Additional Information</label>
+        <textarea id="message" rows="4" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
       </div>
-
-      <button type="submit" class="btn btn-primary">Submit Enquiry</button>
+      
+      <button type="submit" style="width: 100%; padding: 14px; background: #C9A24B; color: #1B2A4A; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer;">
+        Submit Enquiry
+      </button>
+      
+      <div id="formMessage" style="margin-top: 1rem; padding: 12px; border-radius: 8px; display: none;"></div>
     </form>
   </div>
 </section>
+
+<script>
+  document.getElementById('admissionsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const messageDiv = document.getElementById('formMessage');
+    
+    messageDiv.style.display = 'block';
+    messageDiv.style.background = '#cce5ff';
+    messageDiv.style.color = '#004085';
+    messageDiv.textContent = 'Submitting...';
+
+    const data = {
+      parentName: document.getElementById('parentName').value,
+      studentName: document.getElementById('studentName').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      grade: document.getElementById('grade').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      const response = await fetch('/.netlify/functions/save-admission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        messageDiv.style.background = '#d4edda';
+        messageDiv.style.color = '#155724';
+        messageDiv.textContent = '✅ Thank you! Your enquiry has been submitted. We will contact you soon.';
+        document.getElementById('admissionsForm').reset();
+      } else {
+        messageDiv.style.background = '#f8d7da';
+        messageDiv.style.color = '#721c24';
+        messageDiv.textContent = '❌ Error: ' + (result.error || 'Please try again.');
+      }
+    } catch (error) {
+      messageDiv.style.background = '#f8d7da';
+      messageDiv.style.color = '#721c24';
+      messageDiv.textContent = '❌ Error: ' + error.message;
+    }
+  });
+</script>
