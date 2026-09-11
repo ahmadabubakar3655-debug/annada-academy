@@ -1,96 +1,94 @@
 ---
 layout: base.njk
 title: Home
-description: "Annada Qur'an & Science Academy in Kudan, Kaduna State — Qur'anic values, scientific knowledge, excellent character."
+permalink: /index.html
 ---
 
-<section class="hero">
-  <div class="container">
-    <h1>{{ site.orgName }}</h1>
-    <p class="hero-motto">{{ site.motto }}</p>
-    <p class="hero-tagline">{{ site.tagline }}</p>
-    <div class="hero-actions">
-      <a href="/admissions/" class="btn btn-primary">Admissions Enquiry</a>
-      <a href="/about/" class="btn btn-outline">Learn More</a>
+<!-- HERO SECTION -->
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 5rem 1.5rem; text-align: center;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    
+    <!-- Arabic Name -->
+    <p style="color: #C9A24B; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 1rem; opacity: 0.9;">
+      أَنَدَة أكاديمية القرآن والعلوم
+    </p>
+    
+    <!-- Main Title -->
+    <h1 style="color: #FFFFFF; font-size: 3rem; font-weight: 700; line-height: 1.2; margin: 0 0 1.5rem 0; letter-spacing: -0.5px;">
+      Annada Qur'an &amp; Science Academy
+    </h1>
+    
+    <!-- Divider -->
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    
+    <!-- Tagline -->
+    <p style="color: #F7F3EC; font-size: 1.25rem; line-height: 1.6; max-width: 700px; margin: 0 auto 2.5rem auto; opacity: 0.95;">
+      Qur'anic values. Scientific knowledge. Excellent character.
+    </p>
+    
+    <!-- CTA Buttons -->
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/admissions/" style="background: #C9A24B; color: #1B2A4A; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.05rem; transition: all 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(201, 162, 75, 0.3);">
+        Admissions Enquiry
+      </a>
+      <a href="/about/" style="background: transparent; color: #FFFFFF; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1.05rem; border: 2px solid rgba(255,255,255,0.4); transition: all 0.3s; display: inline-block;">
+        Learn More
+      </a>
     </div>
+    
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Welcome to {{ site.shortName }}</h2>
-      <p>Established in {{ site.established }} in {{ site.address.line1 }}, {{ site.address.line2 }}, we bring together authentic Qur'anic education and a strong foundation in modern science.</p>
-    </div>
-
-    <div class="card-grid">
-      {% for value in site.values %}
-      <div class="card">
-        <h3>{{ value.title }}</h3>
-        <p>{{ value.description }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Academic Programs</h2>
-      <p>A structured path from early education through secondary school.</p>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <h3>Qur'anic & Islamic Studies</h3>
-        <p>Qur'an memorization (Hifz), Tajweed, Arabic language, and Islamic studies taught by qualified instructors.</p>
-      </div>
-      <div class="card">
-        <h3>Primary & Secondary Education</h3>
-        <p>A full academic curriculum covering core subjects, preparing students for national examinations.</p>
-      </div>
-      <div class="card">
-        <h3>Science & Technology</h3>
-        <p>A genuine emphasis on scientific literacy — mathematics, basic sciences, and technology.</p>
-      </div>
-    </div>
-
-    <p style="text-align:center; margin-top: var(--space-lg);">
-      <a href="/academics/" class="btn btn-primary">View All Programs</a>
+<!-- WELCOME SECTION -->
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; margin-bottom: 1rem;">Welcome to Annada Academy</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #555; font-size: 1.1rem; line-height: 1.8; max-width: 750px; margin: 0 auto;">
+      Annada Qur'an &amp; Science Academy exists to nurture children in the memorization and understanding of the Qur'an alongside a rigorous foundation in science and modern education — raising students of strong faith, sound character, and academic excellence.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Why Choose {{ site.shortName }}?</h2>
-    </div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Balanced Education</h3>
-        <p>A genuine integration of Islamic values and modern academic rigor — not one at the expense of the other.</p>
+<!-- FEATURES SECTION -->
+<section style="padding: 4rem 1.5rem; background: #F7F3EC;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <h2 style="color: #1B2A4A; font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Why Choose Annada?</h2>
+    <div style="width: 60px; height: 3px; background: #C9A24B; margin: 0 auto 3rem auto;"></div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+      
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📖</div>
+        <h3 style="color: #1B2A4A; font-size: 1.2rem; margin-bottom: 0.75rem;">Qur'anic Excellence</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Memorization and deep understanding of the Holy Qur'an with proper Tajweed.</p>
       </div>
-      <div class="card">
-        <h3>Character Formation</h3>
-        <p>Discipline, adab (manners), and community are woven into daily school life, not treated as an afterthought.</p>
+      
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔬</div>
+        <h3 style="color: #1B2A4A; font-size: 1.2rem; margin-bottom: 0.75rem;">Science &amp; Modern Education</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Strong foundation in sciences, mathematics, and English for future success.</p>
       </div>
-      <div class="card">
-        <h3>Experienced Guidance</h3>
-        <p>Since {{ site.established }}, we've built our approach around what genuinely serves our students.</p>
+      
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌟</div>
+        <h3 style="color: #1B2A4A; font-size: 1.2rem; margin-bottom: 0.75rem;">Excellent Character</h3>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">Raising students with strong Islamic values, discipline, and good manners.</p>
       </div>
+      
     </div>
   </div>
 </section>
 
-<section class="section section-alt" style="text-align:center;">
-  <div class="container">
-    <h2>Ready to Join Our Community?</h2>
-    <p style="max-width:500px; margin: var(--space-sm) auto var(--space-lg);">Reach out to learn more about admissions, classes available, and how to enroll your child.</p>
-    <div class="hero-actions">
-      <a href="/admissions/" class="btn btn-primary">Start Admissions Enquiry</a>
-      <a href="/contact/" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-navy);">Contact Us</a>
-    </div>
+<!-- CTA SECTION -->
+<section style="padding: 4rem 1.5rem; background: #1B2A4A; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 style="color: #FFFFFF; font-size: 2rem; margin-bottom: 1rem;">Ready to Join Us?</h2>
+    <p style="color: #F7F3EC; font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+      Give your child the gift of Qur'anic and scientific education.
+    </p>
+    <a href="/admissions/" style="background: #C9A24B; color: #1B2A4A; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.05rem; display: inline-block; box-shadow: 0 4px 15px rgba(201, 162, 75, 0.3);">
+      Apply Now
+    </a>
   </div>
 </section>

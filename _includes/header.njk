@@ -1,90 +1,127 @@
-<header style="background: #1B2A4A; padding: 0.8rem 0; box-shadow: 0 2px 15px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000;">
-  <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+<header style="background: #1B2A4A; padding: 0.9rem 0; box-shadow: 0 2px 15px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000;">
+  <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; padding: 0 1.5rem;">
     
     <!-- Logo -->
     <a href="/" style="display: flex; align-items: center; text-decoration: none; gap: 12px;">
-      <img src="/assets/images/logo.png" alt="Annada Academy" style="height: 45px; width: auto;">
-      <div>
-        <div style="color: #C9A24B; font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Annada Academy</div>
-        <div style="color: #F7F3EC; font-size: 0.65rem; opacity: 0.7;">Qur'an & Science</div>
+      <img src="/assets/images/logo.png" alt="Annada Academy" style="height: 48px; width: auto;">
+      <div style="display: none;" class="logo-text">
+        <div style="color: #C9A24B; font-weight: 700; font-size: 1.15rem; line-height: 1.2;">Annada Academy</div>
+        <div style="color: #F7F3EC; font-size: 0.65rem; opacity: 0.7;">Qur'an &amp; Science</div>
       </div>
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
-      <a href="/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">Home</a>
-      <a href="/about/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">About</a>
-      <a href="/academics/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">Academics</a>
-      <a href="/admissions/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">Admissions</a>
-      <a href="/school-life/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">School Life</a>
-      <a href="/gallery/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">Gallery</a>
-      <a href="/news/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">News</a>
-      <a href="/faq/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">FAQ</a>
-      <a href="/contact/" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 4px; transition: background 0.3s;">Contact</a>
+    <!-- DESKTOP NAVIGATION (hidden on mobile) -->
+    <nav class="desktop-nav" style="display: flex; gap: 0.4rem; align-items: center;">
+      <a href="/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">Home</a>
+      <a href="/about/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">About</a>
+      <a href="/academics/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">Academics</a>
+      <a href="/admissions/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">Admissions</a>
+      <a href="/gallery/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">Gallery</a>
+      <a href="/news/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">News</a>
+      <a href="/contact/" style="color: #FFFFFF; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">Contact</a>
       
-      <!-- Admin Link (visible when logged in) -->
-      <div id="adminLink" style="display: none;">
-        <a href="/admin/" style="background: #C9A24B; color: #1B2A4A; text-decoration: none; font-weight: 600; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem;">Admin</a>
-      </div>
+      <!-- Admin Button (shows when logged in) -->
+      <a href="/admin/" id="adminLink" style="display: none; background: #C9A24B; color: #1B2A4A; text-decoration: none; font-weight: 700; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; margin-left: 0.5rem; transition: background 0.2s;">
+        Admin
+      </a>
       
       <!-- Student Login -->
-      <a href="/student-login/" style="background: #1E5631; color: white; text-decoration: none; font-weight: 600; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; transition: background 0.3s;">Student</a>
+      <a href="/student-login/" style="background: #1E5631; color: #FFFFFF; text-decoration: none; font-weight: 600; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; margin-left: 0.3rem; transition: background 0.2s;">
+        Student Login
+      </a>
     </nav>
 
-    <!-- Mobile Menu Toggle -->
-    <button id="menuToggle" style="display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 5px;">
+    <!-- MOBILE HAMBURGER BUTTON (shows on mobile only) -->
+    <button id="menuToggle" style="display: none; background: transparent; border: 2px solid rgba(255,255,255,0.3); color: #FFFFFF; font-size: 1.5rem; cursor: pointer; padding: 6px 12px; border-radius: 6px; line-height: 1;">
       ☰
     </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" style="display: none; background: #1B2A4A; padding: 1rem 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-    <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
-      <a href="/" style="color: white; text-decoration: none; padding: 8px 0;">Home</a>
-      <a href="/about/" style="color: white; text-decoration: none; padding: 8px 0;">About</a>
-      <a href="/academics/" style="color: white; text-decoration: none; padding: 8px 0;">Academics</a>
-      <a href="/admissions/" style="color: white; text-decoration: none; padding: 8px 0;">Admissions</a>
-      <a href="/school-life/" style="color: white; text-decoration: none; padding: 8px 0;">School Life</a>
-      <a href="/gallery/" style="color: white; text-decoration: none; padding: 8px 0;">Gallery</a>
-      <a href="/news/" style="color: white; text-decoration: none; padding: 8px 0;">News</a>
-      <a href="/faq/" style="color: white; text-decoration: none; padding: 8px 0;">FAQ</a>
-      <a href="/contact/" style="color: white; text-decoration: none; padding: 8px 0;">Contact</a>
-      <div id="mobileAdminLink" style="display: none;">
-        <a href="/admin/" style="background: #C9A24B; color: #1B2A4A; text-decoration: none; padding: 10px 20px; border-radius: 6px; text-align: center; font-weight: 600; display: block;">Admin</a>
-      </div>
-      <a href="/student-login/" style="background: #1E5631; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; text-align: center; font-weight: 600;">Student Login</a>
+  <!-- MOBILE MENU (slides down when hamburger clicked) -->
+  <div id="mobileMenu" style="display: none; background: #15223c; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+    <nav style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <a href="/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Home</a>
+      <a href="/about/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">About</a>
+      <a href="/academics/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Academics</a>
+      <a href="/admissions/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Admissions</a>
+      <a href="/school-life/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">School Life</a>
+      <a href="/gallery/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Gallery</a>
+      <a href="/news/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">News</a>
+      <a href="/faq/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">FAQ</a>
+      <a href="/contact/" style="color: #FFFFFF; text-decoration: none; padding: 12px 8px; border-radius: 6px; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05);">Contact</a>
+      
+      <a href="/student-login/" style="background: #1E5631; color: #FFFFFF; text-decoration: none; padding: 14px 20px; border-radius: 6px; text-align: center; font-weight: 600; margin-top: 0.8rem;">
+        Student Login
+      </a>
+      
+      <a href="/admin/" id="mobileAdminLink" style="display: none; background: #C9A24B; color: #1B2A4A; text-decoration: none; padding: 14px 20px; border-radius: 6px; text-align: center; font-weight: 700; margin-top: 0.5rem;">
+        Admin Dashboard
+      </a>
     </nav>
   </div>
 </header>
 
-<script>
-  // Show admin link if logged in
-  document.addEventListener('DOMContentLoaded', function() {
-    const adminToken = localStorage.getItem('adminToken');
-    if (adminToken) {
-      document.getElementById('adminLink').style.display = 'inline-block';
-      document.getElementById('mobileAdminLink').style.display = 'block';
-    }
-  });
-
-  // Mobile Menu Toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  function handleMenuVisibility() {
-    if (window.innerWidth <= 768) {
-      menuToggle.style.display = 'block';
-      mobileMenu.style.display = 'none';
-    } else {
-      menuToggle.style.display = 'none';
-      mobileMenu.style.display = 'none';
-    }
+<style>
+  /* Show logo text on larger screens */
+  @media (min-width: 768px) {
+    .logo-text { display: block !important; }
   }
 
-  menuToggle.addEventListener('click', function() {
-    mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
-  });
+  /* Mobile responsive */
+  @media (max-width: 900px) {
+    .desktop-nav { display: none !important; }
+    #menuToggle { display: block !important; }
+  }
 
-  window.addEventListener('resize', handleMenuVisibility);
-  handleMenuVisibility();
+  /* Nav hover effects */
+  .desktop-nav a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Mobile menu links hover */
+  #mobileMenu a:hover {
+    background: rgba(201, 162, 75, 0.15);
+  }
+
+  /* Hero responsive */
+  @media (max-width: 768px) {
+    h1 { font-size: 2rem !important; }
+  }
+</style>
+
+<script>
+  // ============ HAMBURGER MENU TOGGLE ============
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', function() {
+        if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+          mobileMenu.style.display = 'block';
+          menuToggle.textContent = '✕';
+        } else {
+          mobileMenu.style.display = 'none';
+          menuToggle.textContent = '☰';
+        }
+      });
+
+      // Close menu when clicking a link
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.style.display = 'none';
+          menuToggle.textContent = '☰';
+        });
+      });
+    }
+
+    // ============ SHOW ADMIN BUTTON IF LOGGED IN ============
+    const adminToken = localStorage.getItem('adminToken');
+    if (adminToken) {
+      const adminLink = document.getElementById('adminLink');
+      const mobileAdminLink = document.getElementById('mobileAdminLink');
+      if (adminLink) adminLink.style.display = 'inline-block';
+      if (mobileAdminLink) mobileAdminLink.style.display = 'block';
+    }
+  });
 </script>
