@@ -24,7 +24,9 @@ permalink: /admin/index.html
       <button onclick="showTab('dashboard')" class="tab-btn active" style="background: #1B2A4A; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Dashboard</button>
       <button onclick="showTab('news')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">News</button>
       <button onclick="showTab('gallery')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Gallery</button>
+      <button onclick="showTab('videos')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Videos</button>
       <button onclick="showTab('messages')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Messages</button>
+      <button onclick="showTab('users')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Users</button>
       <button onclick="logout()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
     </div>
 
@@ -72,10 +74,31 @@ permalink: /admin/index.html
       <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>
     </div>
 
+    <!-- Videos Tab -->
+    <div id="tab-videos" class="tab-content" style="display: none;">
+      <h2>Video Gallery</h2>
+      <div style="background: #F7F3EC; padding: 20px; border-radius: 8px; margin-bottom: 2rem;">
+        <h3>Upload Video</h3>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Video files should be under 8MB (MongoDB limit).</p>
+        <input type="text" id="videoTitle" placeholder="Video Title" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;">
+        <input type="text" id="videoDescription" placeholder="Description (optional)" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;">
+        <input type="file" id="videoFile" accept="video/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        <button onclick="uploadVideo()" style="background: #1E5631; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Upload Video</button>
+        <div id="videoUploadStatus" style="margin-top: 10px;"></div>
+      </div>
+      <div id="videosAdminGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+    </div>
+
     <!-- Messages Tab -->
     <div id="tab-messages" class="tab-content" style="display: none;">
       <h2>Messages</h2>
       <div id="messagesList"></div>
+    </div>
+
+    <!-- Users Tab -->
+    <div id="tab-users" class="tab-content" style="display: none;">
+      <h2>Registered Students</h2>
+      <div id="usersList" style="margin-top: 1rem;"></div>
     </div>
   </div>
 </div>
@@ -130,6 +153,8 @@ function showTab(tabName) {
 
   if (tabName === 'messages') loadMessages();
   if (tabName === 'gallery') loadGallery();
+  if (tabName === 'videos') loadVideosAdmin();
+  if (tabName === 'users') loadUsers();
 }
 
 // Load stats
@@ -311,6 +336,101 @@ async function deleteImage(id) {
   }
 }
 
+// Video functions
+async function uploadVideo() {
+  const title = document.getElementById('videoTitle').value;
+  const description = document.getElementById('videoDescription').value;
+  const fileInput = document.getElementById('videoFile');
+  const status = document.getElementById('videoUploadStatus');
+
+  if (!title || !fileInput.files[0]) {
+    alert('Please enter a title and select a video');
+    return;
+  }
+
+  const file = fileInput.files[0];
+  if (file.size > 8 * 1024 * 1024) {
+    alert('Video too large. Please use a video under 8MB.');
+    return;
+  }
+
+  status.textContent = 'Uploading... please wait';
+  status.style.color = '#1B2A4A';
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const response = await fetch('/.netlify/functions/upload-video', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+        },
+        body: JSON.stringify({ title, description, videoData: e.target.result })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        status.textContent = '✅ Video uploaded!';
+        status.style.color = '#1E5631';
+        document.getElementById('videoTitle').value = '';
+        document.getElementById('videoDescription').value = '';
+        document.getElementById('videoFile').value = '';
+        loadVideosAdmin();
+      } else {
+        status.textContent = '❌ Error: ' + data.error;
+        status.style.color = '#dc3545';
+      }
+    } catch (error) {
+      status.textContent = '❌ Error: ' + error.message;
+      status.style.color = '#dc3545';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function loadVideosAdmin() {
+  try {
+    const response = await fetch('/.netlify/functions/get-videos');
+    const data = await response.json();
+    
+    const grid = document.getElementById('videosAdminGrid');
+    if (!data.success || data.videos.length === 0) {
+      grid.innerHTML = '<p>No videos yet.</p>';
+      return;
+    }
+
+    grid.innerHTML = data.videos.map(vid => `
+      <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <video src="${vid.videoData}" style="width: 100%; height: 180px; object-fit: cover; background: #000;"></video>
+        <div style="padding: 15px;">
+          <h4 style="margin: 0 0 8px 0;">${vid.title}</h4>
+          <button onclick="deleteVideo('${vid._id}')" style="background: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (error) {
+    console.error('Error loading videos:', error);
+  }
+}
+
+async function deleteVideo(id) {
+  if (!confirm('Delete this video?')) return;
+  const response = await fetch('/.netlify/functions/delete-video', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+    },
+    body: JSON.stringify({ id })
+  });
+  const data = await response.json();
+  if (data.success) {
+    loadVideosAdmin();
+  }
+}
+
 // Messages functions
 async function loadMessages() {
   try {
@@ -334,4 +454,47 @@ async function loadMessages() {
     console.error('Error loading messages:', error);
   }
 }
-</script><button onclick="showTab('users')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Users</button>
+
+// Users functions
+async function loadUsers() {
+  try {
+    const response = await fetch('/.netlify/functions/get-students', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('adminToken') }
+    });
+    const data = await response.json();
+    
+    const usersList = document.getElementById('usersList');
+    if (data.success && data.students.length === 0) {
+      usersList.innerHTML = '<p style="color: #666;">No students registered yet.</p>';
+      return;
+    }
+
+    usersList.innerHTML = `
+      <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead style="background: #1B2A4A; color: white;">
+            <tr>
+              <th style="padding: 12px; text-align: left;">Name</th>
+              <th style="padding: 12px; text-align: left;">Email</th>
+              <th style="padding: 12px; text-align: left;">Grade</th>
+              <th style="padding: 12px; text-align: left;">Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.students.map(student => `
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 10px;">${student.name}</td>
+                <td style="padding: 10px;">${student.email}</td>
+                <td style="padding: 10px;">${student.grade || 'N/A'}</td>
+                <td style="padding: 10px;">${new Date(student.createdAt).toLocaleDateString()}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } catch (error) {
+    console.error('Error loading users:', error);
+  }
+}
+</script>
