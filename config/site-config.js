@@ -1,25 +1,22 @@
 // ============================================
 // SITE CONFIGURATION
 // This is the ONLY file that should contain
-// school-specific information. Every page pulls
-// its content from here — to reuse this whole
-// website for a different school later, you would
-// only need to edit THIS file.
+// school-specific information.
 // ============================================
 
 const SITE_CONFIG = {
   // Basic identity
-  orgName: "Annada Qur'an & Science Academy",
-  orgNameArabic: "أَنَدَة أكاديمية القرآن والعلوم",
-  shortName: "Annada Academy",
+  orgName: "Halqatul Qur'anil Karim",
+  orgNameArabic: "حَلْقَةُ الْقُرْآنِ الْكَرِيمِ",
+  shortName: "Halqatul Qur'anil Karim",
   established: 2018,
-  motto: "Faith • Learning • Discovery",
-  tagline: "Qur'anic values. Scientific knowledge. Excellent character.",
-
+  motto: "Faith • Qur'an • Knowledge",
+  tagline: "Raising sound and moral Qur'anic memorizers.",
+  
   // Location
   address: {
-    line1: "Kudan, Kudan LGA",
-    line2: "Kaduna State, Nigeria"
+    line1: "Sabon Garin Kudan",
+    line2: "Kudan LGA, Kaduna State, Nigeria"
   },
 
   // Contact
@@ -27,7 +24,7 @@ const SITE_CONFIG = {
     phone1: "09136392655",
     phone2: "09015960031",
     email: "annadaacademy@gmail.com",
-    whatsapp: "" // add once you confirm a WhatsApp business number
+    whatsapp: ""
   },
 
   // Social media (leave blank until real links exist)
@@ -37,9 +34,16 @@ const SITE_CONFIG = {
     twitter: ""
   },
 
-  // Mission / Vision (provisional — replace with official wording if available)
-  mission: "Annada Qur'an & Science Academy exists to nurture children in the memorization and understanding of the Qur'an alongside a rigorous foundation in science and modern education, raising students of strong faith, sound character, and academic excellence.",
-  vision: "To be a leading model in Kaduna State — and beyond — for Islamic education that integrates authentic Qur'anic learning with scientific inquiry, producing graduates equipped for both this world and the hereafter.",
+  // Mission / Vision
+  mission: "To produce sound and moral Qur'anic memorizers and Islamic developers who will serve the Ummah with knowledge, character, and dedication.",
+  vision: "To be a leading center of Qur'anic memorization and Islamic knowledge in Kaduna State and beyond, producing graduates equipped for both this world and the Hereafter.",
+
+  // Statistics
+  stats: {
+    students: 20,
+    teachers: "",
+    years: ""
+  },
 
   // Brand colors, pulled from the official logo
   colors: {
@@ -50,11 +54,6 @@ const SITE_CONFIG = {
   }
 };
 
-// This last part makes SITE_CONFIG usable both in the
-// browser (website pages) AND later in our backend code
-// (Netlify Functions) — you don't need to understand the
-// mechanics yet, just know it's what makes one file work
-// in both places.
 if (typeof module !== "undefined" && module.exports) {
   module.exports = SITE_CONFIG;
 }

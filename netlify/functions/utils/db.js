@@ -1,4 +1,5 @@
-const { MongoClient } = require('mongodb');
+const dns = require('dns');
+dns.setServers(['1.1.1.1', '8.8.8.8']);const { MongoClient } = require('mongodb');
 
 let cachedClient = null;
 let cachedDb = null;
