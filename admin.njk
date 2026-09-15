@@ -27,6 +27,7 @@ permalink: /admin/index.html
       <button onclick="showTab('videos')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Videos</button>
       <button onclick="showTab('messages')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Messages</button>
       <button onclick="showTab('users')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Users</button>
+      <button onclick="showTab('hifz')" class="tab-btn" style="background: #ddd; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Hifz</button>
       <button onclick="logout()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
     </div>
 
@@ -101,6 +102,67 @@ permalink: /admin/index.html
       <p style="color: #666; margin-bottom: 1rem;">Manage student accounts. Deleting a student removes their login access and all their data.</p>
       <div id="usersList" style="margin-top: 1rem;"></div>
     </div>
+
+    <!-- Hifz Tab -->
+    <div id="tab-hifz" class="tab-content" style="display: none;">
+      <h2>Qur'an Memorization Tracker</h2>
+      <p style="color: #666; margin-bottom: 1.5rem;">Record what each student has memorized.</p>
+      
+      <!-- Add Hifz Record Form -->
+      <div style="background: #F7F3EC; padding: 20px; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #1B2A4A; margin-bottom: 1rem;">Add Progress Record</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Student *</label>
+            <select id="hifzStudent" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+              <option value="">-- Select Student --</option>
+            </select>
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Surah Name *</label>
+            <input type="text" id="hifzSurahName" placeholder="e.g., Al-Fatihah" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Surah # (1-114) *</label>
+            <input type="number" id="hifzSurahNumber" min="1" max="114" placeholder="1" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Juz # (1-30)</label>
+            <input type="number" id="hifzJuz" min="1" max="30" placeholder="1" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Pages / Ayahs</label>
+            <input type="text" id="hifzPages" placeholder="e.g., Ayah 1-7" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Status</label>
+            <select id="hifzStatus" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+              <option value="memorized">✅ Memorized</option>
+              <option value="revising">🔄 Revising</option>
+              <option value="in-progress">📖 In Progress</option>
+            </select>
+          </div>
+        </div>
+        
+        <div style="margin-top: 15px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1B2A4A;">Notes (optional)</label>
+          <input type="text" id="hifzNotes" placeholder="e.g., Excellent Tajweed" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        
+        <button onclick="addHifz()" style="background: #1E5631; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; margin-top: 15px;">Add Record</button>
+        <div id="hifzStatus2" style="margin-top: 10px;"></div>
+      </div>
+      
+      <!-- All Hifz Records -->
+      <h3 style="color: #1B2A4A; margin-bottom: 1rem;">All Progress Records</h3>
+      <div id="hifzList"></div>
+    </div>
   </div>
 </div>
 
@@ -156,6 +218,10 @@ function showTab(tabName) {
   if (tabName === 'gallery') loadGallery();
   if (tabName === 'videos') loadVideosAdmin();
   if (tabName === 'users') loadUsers();
+  if (tabName === 'hifz') {
+    loadStudentsForHifz();
+    loadHifzList();
+  }
 }
 
 // Load stats
@@ -504,11 +570,9 @@ async function loadUsers() {
 }
 
 async function deleteStudent(id, name) {
-  // First confirmation
   const confirmed = confirm(`⚠️ Are you sure you want to DELETE "${name}"?\n\nThis cannot be undone!`);
   if (!confirmed) return;
 
-  // Second confirmation for safety
   const reallySure = confirm(`Really delete ${name}?\n\nThis will remove their account, login access, and all their data permanently.`);
   if (!reallySure) return;
 
@@ -533,6 +597,155 @@ async function deleteStudent(id, name) {
     }
   } catch (error) {
     alert('❌ Error: ' + error.message);
+  }
+}
+
+// ===================== HIFZ =====================
+async function loadStudentsForHifz() {
+  try {
+    const response = await fetch('/.netlify/functions/get-students', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('adminToken') }
+    });
+    const data = await response.json();
+    
+    const select = document.getElementById('hifzStudent');
+    if (data.success && data.students) {
+      select.innerHTML = '<option value="">-- Select Student --</option>' +
+        data.students.map(s => `<option value="${s._id}">${s.name} (${s.grade || 'N/A'})</option>`).join('');
+    }
+  } catch (error) {
+    console.error('Error loading students:', error);
+  }
+}
+
+async function addHifz() {
+  const studentId = document.getElementById('hifzStudent').value;
+  const surahName = document.getElementById('hifzSurahName').value.trim();
+  const surahNumber = document.getElementById('hifzSurahNumber').value;
+  const juzNumber = document.getElementById('hifzJuz').value;
+  const pages = document.getElementById('hifzPages').value.trim();
+  const status = document.getElementById('hifzStatus').value;
+  const notes = document.getElementById('hifzNotes').value.trim();
+  const statusDiv = document.getElementById('hifzStatus2');
+
+  if (!studentId || !surahName || !surahNumber) {
+    statusDiv.style.color = '#dc3545';
+    statusDiv.textContent = '❌ Student, Surah name, and Surah number are required';
+    return;
+  }
+
+  statusDiv.style.color = '#1B2A4A';
+  statusDiv.textContent = 'Saving...';
+
+  try {
+    const response = await fetch('/.netlify/functions/add-hifz', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+      },
+      body: JSON.stringify({ studentId, surahName, surahNumber, juzNumber, pages, status, notes })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      statusDiv.style.color = '#1E5631';
+      statusDiv.textContent = '✅ Record added successfully!';
+      document.getElementById('hifzSurahName').value = '';
+      document.getElementById('hifzSurahNumber').value = '';
+      document.getElementById('hifzJuz').value = '';
+      document.getElementById('hifzPages').value = '';
+      document.getElementById('hifzNotes').value = '';
+      loadHifzList();
+    } else {
+      statusDiv.style.color = '#dc3545';
+      statusDiv.textContent = '❌ Error: ' + data.error;
+    }
+  } catch (error) {
+    statusDiv.style.color = '#dc3545';
+    statusDiv.textContent = '❌ Error: ' + error.message;
+  }
+}
+
+async function loadHifzList() {
+  try {
+    const response = await fetch('/.netlify/functions/get-hifz');
+    const data = await response.json();
+    
+    const list = document.getElementById('hifzList');
+    if (!data.success || data.records.length === 0) {
+      list.innerHTML = '<p style="color: #666;">No records yet.</p>';
+      return;
+    }
+
+    const byStudent = {};
+    data.records.forEach(rec => {
+      if (!byStudent[rec.studentName]) byStudent[rec.studentName] = [];
+      byStudent[rec.studentName].push(rec);
+    });
+
+    let html = '';
+    for (const [name, records] of Object.entries(byStudent)) {
+      html += `
+        <div style="background: white; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
+          <div style="background: #1B2A4A; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <strong>${name}</strong>
+            <span style="background: #C9A24B; color: #1B2A4A; padding: 3px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${records.length} records</span>
+          </div>
+          <div style="padding: 15px; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 600px;">
+              <thead>
+                <tr style="background: #F7F3EC;">
+                  <th style="padding: 8px; text-align: left;">Surah</th>
+                  <th style="padding: 8px; text-align: left;">#</th>
+                  <th style="padding: 8px; text-align: left;">Juz</th>
+                  <th style="padding: 8px; text-align: left;">Pages</th>
+                  <th style="padding: 8px; text-align: left;">Status</th>
+                  <th style="padding: 8px; text-align: left;">Date</th>
+                  <th style="padding: 8px; text-align: left;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${records.map(r => `
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 8px;">${r.surahName}</td>
+                    <td style="padding: 8px;">${r.surahNumber}</td>
+                    <td style="padding: 8px;">${r.juzNumber || '-'}</td>
+                    <td style="padding: 8px;">${r.pages || '-'}</td>
+                    <td style="padding: 8px;">${r.status === 'memorized' ? '✅' : r.status === 'revising' ? '🔄' : '📖'} ${r.status}</td>
+                    <td style="padding: 8px;">${new Date(r.createdAt).toLocaleDateString()}</td>
+                    <td style="padding: 8px;">
+                      <button onclick="deleteHifz('${r._id}')" style="background: #dc3545; color: white; padding: 4px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Delete</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    list.innerHTML = html;
+  } catch (error) {
+    console.error('Error loading hifz:', error);
+  }
+}
+
+async function deleteHifz(id) {
+  if (!confirm('Delete this record?')) return;
+  const response = await fetch('/.netlify/functions/delete-hifz', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+    },
+    body: JSON.stringify({ id })
+  });
+  const data = await response.json();
+  if (data.success) {
+    loadHifzList();
   }
 }
 </script>

@@ -4,34 +4,58 @@ title: Student Dashboard
 permalink: /student-dashboard/index.html
 ---
 
-<div class="container" style="max-width: 800px; margin: 2rem auto; padding: 2rem;">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+<div class="container" style="max-width: 900px; margin: 2rem auto; padding: 2rem;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
     <h1 style="color: #1B2A4A; margin: 0;">Student Dashboard</h1>
     <button onclick="logout()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">Logout</button>
   </div>
 
-  <div id="profileCard" style="background: #F7F3EC; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-    <div style="display: grid; gap: 1rem;">
+  <!-- Profile Card -->
+  <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+    <h2 style="color: #1B2A4A; margin-top: 0;">My Profile</h2>
+    <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
       <div><strong>Name:</strong> <span id="studentName">Loading...</span></div>
       <div><strong>Email:</strong> <span id="studentEmail">Loading...</span></div>
       <div><strong>Grade:</strong> <span id="studentGrade">Loading...</span></div>
-      <div><strong>Phone:</strong> <span id="studentPhone">Loading...</span></div>
       <div><strong>Joined:</strong> <span id="studentJoined">Loading...</span></div>
     </div>
   </div>
 
-  <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-    <div style="background: #C9A24B; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
-      <h3 style="margin: 0;">📝 Assignments</h3>
-      <p style="font-size: 2rem; margin: 0.5rem 0;">0</p>
+  <!-- Hifz Progress Overview -->
+  <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+    <h2 style="color: #1B2A4A; margin-top: 0;">📖 Qur'an Memorization Progress</h2>
+    
+    <!-- Stats Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <div style="background: #C9A24B; color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700;" id="surahCount">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.5rem;">Surahs Memorized</div>
+      </div>
+      <div style="background: #1B2A4A; color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700;" id="juzCount">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.5rem;">Juz Touched</div>
+      </div>
+      <div style="background: #1E5631; color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700;" id="totalRecords">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.5rem;">Total Records</div>
+      </div>
     </div>
-    <div style="background: #1B2A4A; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
-      <h3 style="margin: 0;">📊 Grades</h3>
-      <p style="font-size: 2rem; margin: 0.5rem 0;">N/A</p>
+
+    <!-- Progress Bar -->
+    <div style="margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <strong style="color: #1B2A4A;">Overall Progress (out of 114 Surahs)</strong>
+        <span id="progressPercent" style="color: #C9A24B; font-weight: 700;">0%</span>
+      </div>
+      <div style="background: #eee; height: 24px; border-radius: 12px; overflow: hidden;">
+        <div id="progressBar" style="background: linear-gradient(90deg, #C9A24B, #1E5631); height: 100%; width: 0%; transition: width 0.5s;"></div>
+      </div>
     </div>
-    <div style="background: #1E5631; padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
-      <h3 style="margin: 0;">📅 Attendance</h3>
-      <p style="font-size: 2rem; margin: 0.5rem 0;">--</p>
+
+    <!-- Records Table -->
+    <h3 style="color: #1B2A4A;">My Memorization Records</h3>
+    <div id="hifzRecords" style="overflow-x: auto;">
+      <p style="color: #666;">Loading...</p>
     </div>
   </div>
 </div>
@@ -42,6 +66,8 @@ permalink: /student-dashboard/index.html
     window.location.href = '/student-login/';
   }
 
+  let currentStudent = null;
+
   async function loadProfile() {
     try {
       const response = await fetch('/.netlify/functions/student-profile', {
@@ -49,19 +75,73 @@ permalink: /student-dashboard/index.html
       });
       const data = await response.json();
       if (data.success) {
-        const student = data.student;
-        document.getElementById('studentName').textContent = student.name;
-        document.getElementById('studentEmail').textContent = student.email;
-        document.getElementById('studentGrade').textContent = student.grade || 'Not specified';
-        document.getElementById('studentPhone').textContent = student.phone || 'Not provided';
-        document.getElementById('studentJoined').textContent = new Date(student.createdAt).toLocaleDateString();
+        currentStudent = data.student;
+        document.getElementById('studentName').textContent = currentStudent.name;
+        document.getElementById('studentEmail').textContent = currentStudent.email;
+        document.getElementById('studentGrade').textContent = currentStudent.grade || 'Not specified';
+        document.getElementById('studentJoined').textContent = new Date(currentStudent.createdAt).toLocaleDateString();
+        loadHifz();
       } else {
-        alert('Failed to load profile. Please login again.');
         window.location.href = '/student-login/';
       }
     } catch (error) {
-      alert('Error loading profile. Please login again.');
       window.location.href = '/student-login/';
+    }
+  }
+
+  async function loadHifz() {
+    if (!currentStudent) return;
+
+    try {
+      const response = await fetch('/.netlify/functions/get-hifz?studentId=' + currentStudent._id);
+      const data = await response.json();
+      
+      const records = data.records || [];
+      const uniqueSurahs = new Set(records.map(r => r.surahNumber));
+      const uniqueJuz = new Set(records.filter(r => r.juzNumber).map(r => r.juzNumber));
+
+      document.getElementById('surahCount').textContent = uniqueSurahs.size;
+      document.getElementById('juzCount').textContent = uniqueJuz.size;
+      document.getElementById('totalRecords').textContent = records.length;
+
+      const percent = Math.round((uniqueSurahs.size / 114) * 100);
+      document.getElementById('progressPercent').textContent = percent + '%';
+      document.getElementById('progressBar').style.width = percent + '%';
+
+      const table = document.getElementById('hifzRecords');
+      if (records.length === 0) {
+        table.innerHTML = '<p style="color: #666;">No memorization records yet. Your teacher will add your progress soon, insha\'Allah.</p>';
+        return;
+      }
+
+      table.innerHTML = `
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+          <thead>
+            <tr style="background: #1B2A4A; color: white;">
+              <th style="padding: 10px; text-align: left;">Surah</th>
+              <th style="padding: 10px; text-align: left;">#</th>
+              <th style="padding: 10px; text-align: left;">Juz</th>
+              <th style="padding: 10px; text-align: left;">Pages</th>
+              <th style="padding: 10px; text-align: left;">Status</th>
+              <th style="padding: 10px; text-align: left;">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${records.map(r => `
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 10px;">${r.surahName}</td>
+                <td style="padding: 10px;">${r.surahNumber}</td>
+                <td style="padding: 10px;">${r.juzNumber || '-'}</td>
+                <td style="padding: 10px;">${r.pages || '-'}</td>
+                <td style="padding: 10px;">${r.status === 'memorized' ? '✅ Memorized' : r.status === 'revising' ? '🔄 Revising' : '📖 In Progress'}</td>
+                <td style="padding: 10px;">${new Date(r.createdAt).toLocaleDateString()}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    } catch (error) {
+      console.error('Error loading hifz:', error);
     }
   }
 
