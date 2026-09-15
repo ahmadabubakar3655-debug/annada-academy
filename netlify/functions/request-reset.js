@@ -1,11 +1,13 @@
 const { connectToDatabase } = require('./utils/db');
-const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 exports.handler = async function(event) {
   try {
     const { db } = await connectToDatabase();
     const students = db.collection('students');
+
     const { email } = JSON.parse(event.body);
 
     if (!email) {
@@ -17,19 +19,28 @@ exports.handler = async function(event) {
       return { statusCode: 404, body: JSON.stringify({ error: 'No account found with this email' }) };
     }
 
-    const resetToken = jwt.sign(
-      { email: student.email, id: student._id },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '1h' }
-    );
+    // Generate secure 6-digit OTP using crypto (not Math.random!)
+    const otp = crypto.randomInt(100000, 999999).toString();
 
+    // Hash OTP before storing (never store plain OTP in database)
+    const hashedOtp = await bcrypt.hash(otp, 10);
+
+    // OTP expires in 10 minutes
+    const expiry = new Date(Date.now() + 10 * 60 * 1000);
+
+    // Save to student record
     await students.updateOne(
       { _id: student._id },
-      { $set: { resetToken: resetToken, resetTokenExpires: new Date(Date.now() + 3600000) } }
+      {
+        $set: {
+          resetOtp: hashedOtp,
+          resetOtpExpiry: expiry,
+          resetOtpAttempts: 0
+        }
+      }
     );
 
-    const resetLink = `https://annada-academy.netlify.app/reset-password/?token=${resetToken}`;
-
+    // Send email with the OTP
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -39,25 +50,38 @@ exports.handler = async function(event) {
     });
 
     const mailOptions = {
-      from: `"Annada Academy" <${process.env.EMAIL_USER}>`,
+      from: `"Halqatul Qur'anil Karim" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Password Reset - Annada Academy',
+      subject: 'Password Reset Code - Halqatul Qur\'anil Karim',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #F7F3EC; border-radius: 10px;">
           <div style="text-align: center; padding: 20px 0; background: #1B2A4A; border-radius: 10px 10px 0 0;">
-            <h1 style="color: #C9A24B; margin: 0; font-size: 24px;">Annada Academy</h1>
+            <h1 style="color: #C9A24B; margin: 0; font-size: 22px;">Halqatul Qur'anil Karim</h1>
             <p style="color: white; margin: 5px 0 0 0;">Password Reset</p>
           </div>
           <div style="padding: 30px; background: white; border-radius: 0 0 10px 10px;">
             <p style="color: #333; font-size: 16px;">Hello <strong>${student.name}</strong>,</p>
-            <p style="color: #555; font-size: 15px; line-height: 1.6;">We received a request to reset your password for your Annada Academy account.</p>
-            <p style="color: #555; font-size: 15px; line-height: 1.6;">Click the button below to reset your password. This link will expire in <strong>1 hour</strong>.</p>
+            <p style="color: #555; font-size: 15px; line-height: 1.6;">
+              You requested to reset your password. Use the code below:
+            </p>
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${resetLink}" style="background: #C9A24B; color: #1B2A4A; padding: 14px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; display: inline-block;">Reset Password</a>
+              <div style="display: inline-block; background: #F7F3EC; border: 2px dashed #C9A24B; padding: 20px 40px; border-radius: 10px;">
+                <div style="font-size: 42px; font-weight: 700; letter-spacing: 10px; color: #1B2A4A; font-family: 'Courier New', monospace;">
+                  ${otp}
+                </div>
+              </div>
             </div>
-            <p style="color: #999; font-size: 13px; text-align: center;">If you didn't request this, please ignore this email.</p>
+            <p style="color: #555; font-size: 15px; line-height: 1.6; text-align: center;">
+              This code will expire in <strong>10 minutes</strong>.
+            </p>
+            <p style="color: #999; font-size: 13px; text-align: center; margin-top: 20px;">
+              If you didn't request this, please ignore this email. Your password will remain unchanged.
+            </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="color: #999; font-size: 12px; text-align: center;">© 2026 Annada Qur'an & Science Academy<br>Kudan, Kaduna State, Nigeria</p>
+            <p style="color: #999; font-size: 12px; text-align: center;">
+              © ${new Date().getFullYear()} Halqatul Qur'anil Karim<br>
+              Sabon Garin Kudan, Kaduna State, Nigeria
+            </p>
           </div>
         </div>
       `
@@ -67,10 +91,13 @@ exports.handler = async function(event) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: 'Password reset link sent to your email!' })
+      body: JSON.stringify({
+        success: true,
+        message: 'OTP sent to your email!'
+      })
     };
   } catch (error) {
-    console.error('Reset error:', error);
+    console.error('Reset OTP error:', error);
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
 };
