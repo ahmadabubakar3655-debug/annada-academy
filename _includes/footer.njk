@@ -1,33 +1,54 @@
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-col">
-      <p class="footer-org">{{ site.orgName }}</p>
-      <p class="footer-motto">{{ site.motto }}</p>
-      <p class="footer-tagline">{{ site.tagline }}</p>
+<footer style="background: #1B2A4A; color: #F7F3EC; padding: 3rem 1.5rem 1.5rem 1.5rem; margin-top: 4rem;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    
+    <!-- Footer Top -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+      
+      <!-- About -->
+      <div>
+        <h3 style="color: #C9A24B; font-size: 1.15rem; margin-bottom: 1rem;">Halqatul Qur'anil Karim</h3>
+        <p style="color: #C9A24B; font-size: 0.85rem; margin-bottom: 0.75rem; font-weight: 600;">Faith • Qur'an • Knowledge</p>
+        <p style="color: #F7F3EC; font-size: 0.9rem; line-height: 1.7; opacity: 0.85;">
+          Raising sound and moral Qur'anic memorizers and Islamic developers.
+        </p>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 style="color: #C9A24B; font-size: 1.15rem; margin-bottom: 1rem;">Contact</h3>
+        <p style="color: #F7F3EC; font-size: 0.9rem; line-height: 1.8; opacity: 0.85;">
+          Sabon Garin Kudan<br>
+          Kudan LGA, Kaduna State, Nigeria
+        </p>
+        <p style="margin-top: 0.75rem;">
+          <a href="tel:09136392655" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">09136392655</a><br>
+          <a href="mailto:annadaacademy@gmail.com" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85; word-break: break-all;">annadaacademy@gmail.com</a>
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 style="color: #C9A24B; font-size: 1.15rem; margin-bottom: 1rem;">Quick Links</h3>
+        <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+          <li><a href="/admissions/" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">Admissions</a></li>
+          <li><a href="/academics/" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">Programs</a></li>
+          <li><a href="/gallery/" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">Gallery</a></li>
+          <li><a href="/videos/" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">Videos</a></li>
+          <li><a href="/contact/" style="color: #F7F3EC; text-decoration: none; font-size: 0.9rem; opacity: 0.85;">Contact Us</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <p>{{ site.address.line1 }}<br>{{ site.address.line2 }}</p>
-      <p>
-        <a href="tel:{{ site.contact.phone1 }}">{{ site.contact.phone1 }}</a><br>
-        <a href="tel:{{ site.contact.phone2 }}">{{ site.contact.phone2 }}</a>
+    <!-- Footer Bottom -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
+      <p style="color: #F7F3EC; font-size: 0.85rem; opacity: 0.7; margin: 0;">
+        © <span id="year"></span> Halqatul Qur'anil Karim — Sabon Garin Kudan. All rights reserved.
       </p>
-      <p><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="/admissions/">Admissions</a>
-      <a href="/academics/">Academics</a>
-      <a href="/gallery/">Gallery</a>
-      <a href="/faq/">FAQ</a>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="container">
-      <p>&copy; {{ currentYear }} {{ site.orgName }}. Est. {{ site.established }}. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
