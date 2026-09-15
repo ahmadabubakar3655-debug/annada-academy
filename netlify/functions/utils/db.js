@@ -1,7 +1,3 @@
-// Force Node.js to use public DNS servers (fixes SRV DNS issues)
-const dns = require('dns');
-dns.setServers(['1.1.1.1', '8.8.8.8']);
-
 const { MongoClient } = require('mongodb');
 
 let cachedClient = null;
@@ -18,13 +14,17 @@ async function connectToDatabase() {
     throw new Error('MONGODB_URI environment variable is not set');
   }
 
+  console.log('Connecting to MongoDB...');
+
   const client = new MongoClient(uri, {
-    connectTimeoutMS: 30000,
-    socketTimeoutMS: 30000,
-    serverSelectionTimeoutMS: 30000
+    connectTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 15000
   });
   
   await client.connect();
+  console.log('MongoDB connected!');
+  
   const db = client.db('annada_academy');
 
   cachedClient = client;
