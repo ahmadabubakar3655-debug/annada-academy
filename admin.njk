@@ -98,6 +98,7 @@ permalink: /admin/index.html
     <!-- Users Tab -->
     <div id="tab-users" class="tab-content" style="display: none;">
       <h2>Registered Students</h2>
+      <p style="color: #666; margin-bottom: 1rem;">Manage student accounts. Deleting a student removes their login access and all their data.</p>
       <div id="usersList" style="margin-top: 1rem;"></div>
     </div>
   </div>
@@ -172,7 +173,7 @@ async function loadStats() {
   }
 }
 
-// News functions
+// ===================== NEWS =====================
 async function addNews() {
   const title = document.getElementById('newsTitle').value;
   const content = document.getElementById('newsContent').value;
@@ -246,7 +247,7 @@ async function deleteNews(id) {
   }
 }
 
-// Gallery functions
+// ===================== GALLERY =====================
 async function uploadImage() {
   const title = document.getElementById('imageTitle').value;
   const fileInput = document.getElementById('imageFile');
@@ -336,7 +337,7 @@ async function deleteImage(id) {
   }
 }
 
-// Video functions
+// ===================== VIDEOS =====================
 async function uploadVideo() {
   const title = document.getElementById('videoTitle').value;
   const description = document.getElementById('videoDescription').value;
@@ -431,7 +432,7 @@ async function deleteVideo(id) {
   }
 }
 
-// Messages functions
+// ===================== MESSAGES =====================
 async function loadMessages() {
   try {
     const response = await fetch('/.netlify/functions/get-contacts');
@@ -455,7 +456,7 @@ async function loadMessages() {
   }
 }
 
-// Users functions
+// ===================== USERS =====================
 async function loadUsers() {
   try {
     const response = await fetch('/.netlify/functions/get-students', {
@@ -470,23 +471,27 @@ async function loadUsers() {
     }
 
     usersList.innerHTML = `
-      <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse;">
+      <div style="background: white; border-radius: 8px; overflow: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <table style="width: 100%; border-collapse: collapse; min-width: 700px;">
           <thead style="background: #1B2A4A; color: white;">
             <tr>
               <th style="padding: 12px; text-align: left;">Name</th>
               <th style="padding: 12px; text-align: left;">Email</th>
               <th style="padding: 12px; text-align: left;">Grade</th>
               <th style="padding: 12px; text-align: left;">Joined</th>
+              <th style="padding: 12px; text-align: left;">Actions</th>
             </tr>
           </thead>
           <tbody>
             ${data.students.map(student => `
               <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 10px;">${student.name}</td>
-                <td style="padding: 10px;">${student.email}</td>
+                <td style="padding: 10px; word-break: break-all;">${student.email}</td>
                 <td style="padding: 10px;">${student.grade || 'N/A'}</td>
                 <td style="padding: 10px;">${new Date(student.createdAt).toLocaleDateString()}</td>
+                <td style="padding: 10px;">
+                  <button onclick="deleteStudent('${student._id}', '${student.name.replace(/'/g, "\\'")}')" style="background: #dc3545; color: white; padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Delete</button>
+                </td>
               </tr>
             `).join('')}
           </tbody>
@@ -495,6 +500,39 @@ async function loadUsers() {
     `;
   } catch (error) {
     console.error('Error loading users:', error);
+  }
+}
+
+async function deleteStudent(id, name) {
+  // First confirmation
+  const confirmed = confirm(`⚠️ Are you sure you want to DELETE "${name}"?\n\nThis cannot be undone!`);
+  if (!confirmed) return;
+
+  // Second confirmation for safety
+  const reallySure = confirm(`Really delete ${name}?\n\nThis will remove their account, login access, and all their data permanently.`);
+  if (!reallySure) return;
+
+  try {
+    const response = await fetch('/.netlify/functions/delete-student', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+      },
+      body: JSON.stringify({ id })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert('✅ Student deleted successfully.');
+      loadUsers();
+      loadStats();
+    } else {
+      alert('❌ Error: ' + (data.error || 'Failed to delete student'));
+    }
+  } catch (error) {
+    alert('❌ Error: ' + error.message);
   }
 }
 </script>
