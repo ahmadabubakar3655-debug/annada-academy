@@ -4,16 +4,16 @@ title: Student Dashboard
 permalink: /student-dashboard/index.html
 ---
 
-<div class="container" style="max-width: 900px; margin: 2rem auto; padding: 2rem;">
+<div class="container" style="max-width: 1000px; margin: 2rem auto; padding: 2rem;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
     <h1 style="color: #1B2A4A; margin: 0;">Student Dashboard</h1>
     <button onclick="logout()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">Logout</button>
   </div>
 
   <!-- Profile Card -->
-  <div style="background: #F7F3EC; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
-    <h2 style="color: #1B2A4A; margin-top: 0;">My Profile</h2>
-    <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+  <div style="background: #F7F3EC; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+    <h2 style="color: #1B2A4A; margin-top: 0; font-size: 1.3rem;">My Profile</h2>
+    <div style="display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); font-size: 0.95rem;">
       <div><strong>Name:</strong> <span id="studentName">Loading...</span></div>
       <div><strong>Email:</strong> <span id="studentEmail">Loading...</span></div>
       <div><strong>Grade:</strong> <span id="studentGrade">Loading...</span></div>
@@ -21,11 +21,52 @@ permalink: /student-dashboard/index.html
     </div>
   </div>
 
-  <!-- Hifz Progress Overview -->
+  <!-- ATTENDANCE SECTION -->
+  <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+    <h2 style="color: #1B2A4A; margin-top: 0;">📅 My Attendance</h2>
+    
+    <!-- Attendance Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <div style="background: #1E5631; color: white; padding: 1.2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2rem; font-weight: 700;" id="presentCount">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.3rem;">Present</div>
+      </div>
+      <div style="background: #dc3545; color: white; padding: 1.2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2rem; font-weight: 700;" id="absentCount">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.3rem;">Absent</div>
+      </div>
+      <div style="background: #C9A24B; color: white; padding: 1.2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2rem; font-weight: 700;" id="lateCount">0</div>
+        <div style="font-size: 0.85rem; margin-top: 0.3rem;">Late</div>
+      </div>
+      <div style="background: #1B2A4A; color: white; padding: 1.2rem; border-radius: 12px; text-align: center;">
+        <div style="font-size: 2rem; font-weight: 700;" id="attendancePercent">0%</div>
+        <div style="font-size: 0.85rem; margin-top: 0.3rem;">Rate</div>
+      </div>
+    </div>
+
+    <!-- Attendance Bar -->
+    <div style="margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <strong style="color: #1B2A4A;">Attendance Rate</strong>
+        <span id="attendancePercent2" style="color: #C9A24B; font-weight: 700;">0%</span>
+      </div>
+      <div style="background: #eee; height: 24px; border-radius: 12px; overflow: hidden;">
+        <div id="attendanceBar" style="background: linear-gradient(90deg, #1E5631, #C9A24B); height: 100%; width: 0%; transition: width 0.5s;"></div>
+      </div>
+    </div>
+
+    <!-- Recent Attendance -->
+    <h3 style="color: #1B2A4A;">Recent Attendance</h3>
+    <div id="attendanceRecords" style="overflow-x: auto;">
+      <p style="color: #666;">Loading...</p>
+    </div>
+  </div>
+
+  <!-- HIFZ SECTION -->
   <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
     <h2 style="color: #1B2A4A; margin-top: 0;">📖 Qur'an Memorization Progress</h2>
     
-    <!-- Stats Grid -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
       <div style="background: #C9A24B; color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
         <div style="font-size: 2.5rem; font-weight: 700;" id="surahCount">0</div>
@@ -41,7 +82,6 @@ permalink: /student-dashboard/index.html
       </div>
     </div>
 
-    <!-- Progress Bar -->
     <div style="margin-bottom: 2rem;">
       <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
         <strong style="color: #1B2A4A;">Overall Progress (out of 114 Surahs)</strong>
@@ -52,7 +92,6 @@ permalink: /student-dashboard/index.html
       </div>
     </div>
 
-    <!-- Records Table -->
     <h3 style="color: #1B2A4A;">My Memorization Records</h3>
     <div id="hifzRecords" style="overflow-x: auto;">
       <p style="color: #666;">Loading...</p>
@@ -80,6 +119,7 @@ permalink: /student-dashboard/index.html
         document.getElementById('studentEmail').textContent = currentStudent.email;
         document.getElementById('studentGrade').textContent = currentStudent.grade || 'Not specified';
         document.getElementById('studentJoined').textContent = new Date(currentStudent.createdAt).toLocaleDateString();
+        loadAttendance();
         loadHifz();
       } else {
         window.location.href = '/student-login/';
@@ -89,9 +129,59 @@ permalink: /student-dashboard/index.html
     }
   }
 
+  async function loadAttendance() {
+    if (!currentStudent) return;
+    try {
+      const response = await fetch('/.netlify/functions/get-attendance?studentId=' + currentStudent._id);
+      const data = await response.json();
+      
+      const records = data.records || [];
+      const present = records.filter(r => r.status === 'present').length;
+      const absent = records.filter(r => r.status === 'absent').length;
+      const late = records.filter(r => r.status === 'late').length;
+      const total = records.length;
+      const percent = total > 0 ? Math.round((present / total) * 100) : 0;
+
+      document.getElementById('presentCount').textContent = present;
+      document.getElementById('absentCount').textContent = absent;
+      document.getElementById('lateCount').textContent = late;
+      document.getElementById('attendancePercent').textContent = percent + '%';
+      document.getElementById('attendancePercent2').textContent = percent + '%';
+      document.getElementById('attendanceBar').style.width = percent + '%';
+
+      const table = document.getElementById('attendanceRecords');
+      if (records.length === 0) {
+        table.innerHTML = '<p style="color: #666;">No attendance records yet.</p>';
+        return;
+      }
+
+      table.innerHTML = `
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 400px;">
+          <thead>
+            <tr style="background: #1B2A4A; color: white;">
+              <th style="padding: 10px; text-align: left;">Date</th>
+              <th style="padding: 10px; text-align: left;">Status</th>
+              <th style="padding: 10px; text-align: left;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${records.slice(0, 30).map(r => `
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 10px;">${new Date(r.date).toLocaleDateString()}</td>
+                <td style="padding: 10px;">${r.status === 'present' ? '✅ Present' : r.status === 'absent' ? '❌ Absent' : '⏰ Late'}</td>
+                <td style="padding: 10px;">${r.notes || '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    } catch (error) {
+      console.error('Error loading attendance:', error);
+    }
+  }
+
   async function loadHifz() {
     if (!currentStudent) return;
-
     try {
       const response = await fetch('/.netlify/functions/get-hifz?studentId=' + currentStudent._id);
       const data = await response.json();
@@ -110,18 +200,17 @@ permalink: /student-dashboard/index.html
 
       const table = document.getElementById('hifzRecords');
       if (records.length === 0) {
-        table.innerHTML = '<p style="color: #666;">No memorization records yet. Your teacher will add your progress soon, insha\'Allah.</p>';
+        table.innerHTML = '<p style="color: #666;">No memorization records yet. Your teacher will add your progress soon, insha\\'Allah.</p>';
         return;
       }
 
       table.innerHTML = `
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px;">
           <thead>
             <tr style="background: #1B2A4A; color: white;">
               <th style="padding: 10px; text-align: left;">Surah</th>
               <th style="padding: 10px; text-align: left;">#</th>
               <th style="padding: 10px; text-align: left;">Juz</th>
-              <th style="padding: 10px; text-align: left;">Pages</th>
               <th style="padding: 10px; text-align: left;">Status</th>
               <th style="padding: 10px; text-align: left;">Date</th>
             </tr>
@@ -132,7 +221,6 @@ permalink: /student-dashboard/index.html
                 <td style="padding: 10px;">${r.surahName}</td>
                 <td style="padding: 10px;">${r.surahNumber}</td>
                 <td style="padding: 10px;">${r.juzNumber || '-'}</td>
-                <td style="padding: 10px;">${r.pages || '-'}</td>
                 <td style="padding: 10px;">${r.status === 'memorized' ? '✅ Memorized' : r.status === 'revising' ? '🔄 Revising' : '📖 In Progress'}</td>
                 <td style="padding: 10px;">${new Date(r.createdAt).toLocaleDateString()}</td>
               </tr>
