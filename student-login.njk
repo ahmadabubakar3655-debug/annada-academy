@@ -4,8 +4,8 @@ title: Student Login
 permalink: /student-login/index.html
 ---
 
-<div class="container" style="max-width: 450px; margin: 4rem auto; padding: 2rem; background: #F7F3EC; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-  <h1 style="color: #1B2A4A; text-align: center; font-size: 2rem; margin-bottom: 0.5rem;">Student Login</h1>
+<div style="max-width: 450px; margin: 4rem auto; padding: 2rem; background: #F7F3EC; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+  <h1 style="color: #1B2A4A; text-align: center; font-size: 1.8rem; margin-bottom: 0.5rem;">Student Login</h1>
   <p style="text-align: center; color: #666; margin-bottom: 2rem;">Access your dashboard</p>
 
   <form id="loginForm">
@@ -17,12 +17,16 @@ permalink: /student-login/index.html
       <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1B2A4A;">Password</label>
       <input type="password" id="password" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
     </div>
-    <button type="submit" style="width: 100%; padding: 12px; background: #C9A24B; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.3s;">
+    <button type="submit" style="width: 100%; padding: 12px; background: #C9A24B; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;">
       Login
     </button>
   </form>
 
-  <p style="text-align: center; margin-top: 1.5rem;">
+  <p style="text-align: center; margin-top: 1rem;">
+    <a href="/forgot-password/" style="color: #C9A24B;">Forgot Password?</a>
+  </p>
+
+  <p style="text-align: center; margin-top: 1rem;">
     Don't have an account? <a href="/student-register/" style="color: #C9A24B; font-weight: 600;">Register here</a>
   </p>
 
@@ -61,6 +65,4 @@ permalink: /student-login/index.html
       messageDiv.textContent = 'An error occurred. Please try again.';
     }
   });
-</script><p style="text-align: center; margin-top: 1rem;">
-  <a href="/forgot-password/" style="color: #C9A24B;">Forgot Password?</a>
-</p>
+</script>
