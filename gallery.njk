@@ -1,18 +1,48 @@
+---
+layout: base.njk
+title: Gallery
+permalink: /gallery/index.html
+---
+
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 4rem 1.5rem; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="color: #FFFFFF; font-size: 2.75rem; font-weight: 700; margin: 0 0 1rem 0;">Gallery</h1>
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #F7F3EC; font-size: 1.15rem; opacity: 0.9;">
+      Photos from Halqatul Qur'anil Karim.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+      <p style="grid-column: 1/-1; text-align: center; color: #C9A24B;">Loading gallery...</p>
+    </div>
+  </div>
+</section>
+
 <script>
-  async function loadGallery(attempt = 1) {
+  async function loadGallery(attempt) {
+    attempt = attempt || 1;
     const grid = document.getElementById('galleryGrid');
     
+    if (!grid) {
+      console.error('galleryGrid element not found');
+      return;
+    }
+
     try {
       const response = await fetch('/.netlify/functions/get-gallery');
       const data = await response.json();
       
-      if (data.success && data.images.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No images in gallery yet.</p>';
-        return;
-      }
-
       if (!data.success) {
         throw new Error(data.error || 'Failed to load');
+      }
+
+      if (data.images.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No images in gallery yet.</p>';
+        return;
       }
 
       grid.innerHTML = data.images.map(img => `
@@ -25,9 +55,10 @@
         </div>
       `).join('');
     } catch (error) {
+      console.error('Gallery error:', error);
       if (attempt < 3) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #C9A24B;">Loading gallery... (this may take a moment)</p>';
-        setTimeout(() => loadGallery(attempt + 1), 3000);
+        setTimeout(function() { loadGallery(attempt + 1); }, 3000);
       } else {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #dc3545;">Gallery temporarily unavailable. Please refresh the page.</p>';
       }

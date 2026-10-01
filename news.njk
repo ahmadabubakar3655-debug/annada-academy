@@ -1,18 +1,48 @@
+---
+layout: base.njk
+title: News
+permalink: /news/index.html
+---
+
+<section style="background: linear-gradient(135deg, #1B2A4A 0%, #2a3d6a 100%); padding: 4rem 1.5rem; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="color: #FFFFFF; font-size: 2.75rem; font-weight: 700; margin: 0 0 1rem 0;">News & Announcements</h1>
+    <div style="width: 80px; height: 3px; background: #C9A24B; margin: 0 auto 1.5rem auto;"></div>
+    <p style="color: #F7F3EC; font-size: 1.15rem; opacity: 0.9;">
+      Latest updates from Halqatul Qur'anil Karim.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 4rem 1.5rem; background: #FFFFFF;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    <div id="newsContainer" style="display: grid; gap: 1.5rem;">
+      <p style="text-align: center; color: #C9A24B;">Loading news...</p>
+    </div>
+  </div>
+</section>
+
 <script>
-  async function loadNews(attempt = 1) {
+  async function loadNews(attempt) {
+    attempt = attempt || 1;
     const container = document.getElementById('newsContainer');
     
+    if (!container) {
+      console.error('newsContainer element not found');
+      return;
+    }
+
     try {
       const response = await fetch('/.netlify/functions/get-news');
       const data = await response.json();
       
-      if (data.success && data.news.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #666;">No news articles yet.</p>';
-        return;
-      }
-
       if (!data.success) {
         throw new Error(data.error || 'Failed to load');
+      }
+
+      if (data.news.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">No news articles yet. Check back soon, insha Allah.</p>';
+        return;
       }
 
       container.innerHTML = data.news.map(item => `
@@ -23,11 +53,12 @@
         </div>
       `).join('');
     } catch (error) {
+      console.error('News error:', error);
       if (attempt < 3) {
         container.innerHTML = '<p style="text-align: center; color: #C9A24B;">Loading news... (this may take a moment)</p>';
-        setTimeout(() => loadNews(attempt + 1), 3000);
+        setTimeout(function() { loadNews(attempt + 1); }, 3000);
       } else {
-        container.innerHTML = '<p style="text-align: center; color: #dc3545;">News temporarily unavailable. Please refresh.</p>';
+        container.innerHTML = '<p style="text-align: center; color: #dc3545;">News temporarily unavailable. Please refresh the page.</p>';
       }
     }
   }

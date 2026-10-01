@@ -31,7 +31,6 @@ exports.handler = async function(event) {
         };
       }
       
-      // Wait 2 seconds before retry
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }
