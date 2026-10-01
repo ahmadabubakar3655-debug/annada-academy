@@ -17,14 +17,19 @@ async function connectToDatabase() {
   console.log('Connecting to MongoDB...');
 
   const client = new MongoClient(uri, {
-    connectTimeoutMS: 10000,
-    serverSelectionTimeoutMS: 10000,
-    socketTimeoutMS: 15000
+    // Longer timeouts to survive Atlas cold starts on free tier
+    connectTimeoutMS: 30000,
+    socketTimeoutMS: 30000,
+    serverSelectionTimeoutMS: 30000,
+    // Keep connections alive between function calls
+    maxPoolSize: 10,
+    minPoolSize: 1,
+    maxIdleTimeMS: 30000
   });
-  
+
   await client.connect();
   console.log('MongoDB connected!');
-  
+
   const db = client.db('annada_academy');
 
   cachedClient = client;

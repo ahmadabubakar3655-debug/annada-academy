@@ -1,26 +1,18 @@
----
-layout: base.njk
-title: News
-permalink: /news/index.html
----
-
-<div class="container" style="max-width: 1000px; margin: 0 auto; padding: 2rem 20px;">
-  <h1 style="color: #1B2A4A; text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">News & Announcements</h1>
-  <div id="newsContainer" style="display: grid; gap: 1.5rem;">
-    <p style="text-align: center; color: #666;">Loading news...</p>
-  </div>
-</div>
-
 <script>
-  async function loadNews() {
+  async function loadNews(attempt = 1) {
+    const container = document.getElementById('newsContainer');
+    
     try {
       const response = await fetch('/.netlify/functions/get-news');
       const data = await response.json();
       
-      const container = document.getElementById('newsContainer');
       if (data.success && data.news.length === 0) {
         container.innerHTML = '<p style="text-align: center; color: #666;">No news articles yet.</p>';
         return;
+      }
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to load');
       }
 
       container.innerHTML = data.news.map(item => `
@@ -31,7 +23,12 @@ permalink: /news/index.html
         </div>
       `).join('');
     } catch (error) {
-      document.getElementById('newsContainer').innerHTML = '<p style="text-align: center; color: #dc3545;">Error loading news.</p>';
+      if (attempt < 3) {
+        container.innerHTML = '<p style="text-align: center; color: #C9A24B;">Loading news... (this may take a moment)</p>';
+        setTimeout(() => loadNews(attempt + 1), 3000);
+      } else {
+        container.innerHTML = '<p style="text-align: center; color: #dc3545;">News temporarily unavailable. Please refresh.</p>';
+      }
     }
   }
 
