@@ -1,37 +1,38 @@
 const { connectToDatabase } = require('./utils/db');
 
 exports.handler = async function(event) {
-  let attempts = 0;
-  const maxAttempts = 3;
+  try {
+    const { db } = await connectToDatabase();
+    
+    // Only return the 10 most recent images to keep response under 6MB
+    const images = await db.collection('gallery')
+      .find({})
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .toArray();
 
-  while (attempts < maxAttempts) {
-    try {
-      const { db } = await connectToDatabase();
-      const images = await db.collection('gallery')
-        .find({})
-        .sort({ createdAt: -1 })
-        .toArray();
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ success: true, images })
-      };
-    } catch (error) {
-      attempts++;
-      console.log(`Attempt ${attempts} failed:`, error.message);
-      
-      if (attempts >= maxAttempts) {
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ 
-            success: false, 
-            error: error.message,
-            attempts: attempts 
-          })
-        };
-      }
-      
-      await new Promise(resolve => setTimeout(resolve, 2000));
-    }
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        success: true, 
+        count: images.length,
+        images: images 
+      })
+    };
+  } catch (error) {
+    console.error('Gallery error:', error.message);
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        success: false, 
+        error: error.message 
+      })
+    };
   }
 };
